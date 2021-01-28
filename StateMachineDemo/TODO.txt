@@ -1,0 +1,3 @@
+Inputin sanitointi
+Syötetyn merkkimäärän seuranta ja rajoittaminen
+Enterillä tietojen käsittely
