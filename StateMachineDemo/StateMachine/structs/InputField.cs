@@ -6,13 +6,15 @@ namespace StateMachineDemo
 {
     public struct InputField
     {
+        readonly string _fieldName;
         readonly int _maxchars;
         readonly Type _type;
         readonly int _top;
         readonly int _left;
         private StringBuilder _buffer;
-        public InputField(int left, int top, int maxchars, Type type)
+        public InputField(string fieldName, int left, int top, int maxchars, Type type)
         {
+            _fieldName = fieldName;
             _maxchars = maxchars;
             _type = type;
             _left = left;
@@ -30,7 +32,7 @@ namespace StateMachineDemo
                 _buffer.Append(character);
                 return true;
             }
-            return true;
+            return false;
         }
 
         public bool DeleteChar()
@@ -47,5 +49,7 @@ namespace StateMachineDemo
         public Type Type => _type;
         public int Top => _top;
         public int Left => _left;
+
+        public string FieldName => _fieldName;
     }
 }

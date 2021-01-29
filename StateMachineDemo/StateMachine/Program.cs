@@ -43,10 +43,12 @@ namespace StateMachineDemo
                     default:
                         {
                             var field = window.GetInputField();
-                            field.AddChar(key.KeyChar);
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write(key.KeyChar);
-                            Console.ForegroundColor = ConsoleColor.White;
+                            if (field.AddChar(key.KeyChar))
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write(key.KeyChar);
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
                             var coord = window.GetCurrentPosition();
                             Console.SetCursorPosition(coord.Left, coord.Top);
                             break;

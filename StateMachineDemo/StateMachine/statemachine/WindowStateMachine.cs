@@ -35,6 +35,7 @@ namespace StateMachineDemo.StateMachine
     }
     class WindowState
     {
+        List<InputField> _allFields = new List<InputField>();
         private CursorPosition _position;
         private StateEvent _stateEvent;
         readonly InputField _firstName;
@@ -45,10 +46,10 @@ namespace StateMachineDemo.StateMachine
         public WindowState(CursorPosition position)
         {
             _position = position;
-            _firstName = new InputField(10, 10, 15, typeof(string));
-            _lastName = new InputField(30, 10, 15, typeof(string));
-            _age = new InputField(50, 10, 15, typeof(int));
-            _address = new InputField(55, 10, 15, typeof(string));
+            _firstName = new InputField("FirstName",10, 10, 15, typeof(string));
+            _lastName = new InputField("LastName",30, 10, 15, typeof(string));
+            _age = new InputField("Age",50, 10, 3, typeof(int));
+            _address = new InputField("Address",55, 10, 30, typeof(string));
             CreateStateTransitions();
         }
 
@@ -61,7 +62,7 @@ namespace StateMachineDemo.StateMachine
             stateTransitions.Add(new StateChange(CursorPosition.Age, StateEvent.Right), CursorPosition.Address);
             stateTransitions.Add(new StateChange(CursorPosition.Age, StateEvent.Left), CursorPosition.LastName);
             stateTransitions.Add(new StateChange(CursorPosition.Address, StateEvent.Right), CursorPosition.FirstName);
-            stateTransitions.Add(new StateChange(CursorPosition.Address, StateEvent.Left), CursorPosition.LastName);
+            stateTransitions.Add(new StateChange(CursorPosition.Address, StateEvent.Left), CursorPosition.Age);
         }
 
         public void ChangeState(StateEvent stateEvent)
