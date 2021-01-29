@@ -40,6 +40,11 @@ namespace StateMachineDemo
                                 Console.Write("\b \b");
                             break;
                         }
+                    case ConsoleKey.Enter:
+                        {
+
+                            break;
+                        }
                     default:
                         {
                             var field = window.GetInputField();
