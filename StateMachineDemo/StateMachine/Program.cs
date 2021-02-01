@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
-using StateMachineDemo.StateMachine;
+using StateMachineDemo;
 
 namespace StateMachineDemo
 {
@@ -10,10 +10,25 @@ namespace StateMachineDemo
     {
         static void Main(string[] args)
         {
-            WindowLayout();
-            WindowState window = new WindowState(CursorPosition.FirstName);
-            var pos = window.GetCurrentPosition();
-            Console.SetCursorPosition(pos.Left, pos.Top);
+            WindowManager window = new WindowManager();
+            var firstName = window.CreateInputField("FirstName", new CursorPosition(10, 10), 15, typeof(string), true);
+            var lastName = window.CreateInputField("LastName", new CursorPosition(30, 10), 15, typeof(string), true);
+            var age = window.CreateInputField("Age", new CursorPosition(50, 10), 3, typeof(int), true);
+            var address = window.CreateInputField("Address", new CursorPosition(55, 10), 30, typeof(string), true);
+            firstName.Label = "Etunimi";
+            lastName.Label  = "Sukunimi";
+            age.Label  = "Ikä";
+            address.Label  = "Osoite";
+            window.CreateStateTransitions(firstName, StateEvent.Right, lastName);
+            window.CreateStateTransitions(firstName, StateEvent.Left, address);
+            window.CreateStateTransitions(lastName, StateEvent.Left, firstName);
+            window.CreateStateTransitions(lastName, StateEvent.Right, age);
+            window.CreateStateTransitions(age, StateEvent.Left, lastName);
+            window.CreateStateTransitions(age, StateEvent.Right, address);
+            window.CreateStateTransitions(address, StateEvent.Left, age);
+            window.CreateStateTransitions(address, StateEvent.Right, firstName);
+            window.DrawInputFieldLabels();
+            window.SetCursorToInputField(firstName);
             while (true)
             {
                 var key = Console.ReadKey(true);
@@ -21,15 +36,13 @@ namespace StateMachineDemo
                 switch (key.Key) {
                     case ConsoleKey.RightArrow:
                         {
-                            window.ChangeState(StateEvent.Right);
-                            var coord = window.GetCurrentPosition();
+                            var coord = window.UserInput(StateEvent.Right);
                             Console.SetCursorPosition(coord.Left, coord.Top);
                             break;
                         }
                     case ConsoleKey.LeftArrow:
                         {
-                            window.ChangeState(StateEvent.Left);
-                            var coord = window.GetCurrentPosition();
+                            var coord = window.UserInput(StateEvent.Left);
                             Console.SetCursorPosition(coord.Left, coord.Top);
                             break;
                         }
@@ -42,7 +55,13 @@ namespace StateMachineDemo
                         }
                     case ConsoleKey.Enter:
                         {
-
+                            try
+                            {
+                                window.ValidateInput();
+                            }
+                            catch (Exception e){
+                                
+                            }
                             break;
                         }
                     default:
@@ -54,25 +73,11 @@ namespace StateMachineDemo
                                 Console.Write(key.KeyChar);
                                 Console.ForegroundColor = ConsoleColor.White;
                             }
-                            var coord = window.GetCurrentPosition();
-                            Console.SetCursorPosition(coord.Left, coord.Top);
                             break;
                         }
                 }
                     
             }
-        }
-
-        static void WindowLayout()
-        {
-            Console.SetCursorPosition(10, 9);
-            Console.Write("First name");
-            Console.SetCursorPosition(30,9);
-            Console.Write("Last name");
-            Console.SetCursorPosition(50, 9);
-            Console.Write("Age");
-            Console.SetCursorPosition(55, 9);
-            Console.Write("Address");
         }
     }
 }

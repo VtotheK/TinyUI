@@ -4,12 +4,12 @@ using System.Text;
 
 namespace StateMachineDemo
 {
-    struct CursorCoordinate
+    public class CursorPosition
     {
         private int _top;
         private int _left;
 
-        public CursorCoordinate(int left, int top)
+        public CursorPosition(int left, int top)
         {
             _top = top;
             _left = left;
