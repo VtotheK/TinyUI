@@ -81,6 +81,7 @@ namespace StateMachineDemo
         {
             foreach(var field in _allFields)
             {
+                if(field.Label != null)
                 Console.SetCursorPosition(field.LabelCoordinate.Left, field.LabelCoordinate.Top);
                 Console.Write(field.Label);
             }
@@ -93,7 +94,7 @@ namespace StateMachineDemo
                 Debug.Write(_allFields[i].BufferLength+"\n");
                 if(_allFields[i].NullValues && _allFields[i].BufferLength <= 0)
                 {
-                    throw new Exception("SHIIIT");
+                    throw new InvalidInputException(_allFields[i].FieldName);
                 }
             }
         }

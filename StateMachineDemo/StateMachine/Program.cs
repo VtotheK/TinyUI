@@ -8,9 +8,12 @@ namespace StateMachineDemo
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
             WindowManager window = new WindowManager();
+            Console.SetWindowSize(170, 40);
+            var ERROR_FIELD = window.CreateInputField("Errorfield", new CursorPosition(20, 20),15,typeof(string),true);
             var firstName = window.CreateInputField("FirstName", new CursorPosition(10, 10), 15, typeof(string), true);
             var lastName = window.CreateInputField("LastName", new CursorPosition(30, 10), 15, typeof(string), true);
             var age = window.CreateInputField("Age", new CursorPosition(50, 10), 3, typeof(int), true);
@@ -59,8 +62,11 @@ namespace StateMachineDemo
                             {
                                 window.ValidateInput();
                             }
-                            catch (Exception e){
-                                
+                            catch (InvalidInputException e){
+                                Console.SetCursorPosition(ERROR_FIELD.Position.Left, ERROR_FIELD.Position.Top);
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.BackgroundColor = ConsoleColor.White;
+                                Console.Write(e.Message);
                             }
                             break;
                         }
