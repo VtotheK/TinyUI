@@ -13,11 +13,11 @@ namespace StateMachineDemo
         {
             WindowManager window = new WindowManager(ConsoleColor.White,ConsoleColor.Red);
             Console.SetWindowSize(60, 40);
-            var ERROR_FIELD =   window.CreateErrorMessageField("Errorfield", new CursorPosition(20, 20),15, InputType.String,false);
-            var firstName =     window.CreateInputField("FirstName", new CursorPosition(0, 10), 15, InputType.String, false);
-            var lastName =      window.CreateInputField("LastName", new CursorPosition(20, 10), 15, InputType.String, false);
-            var age =           window.CreateInputField("Age", new CursorPosition(40, 10), 3, InputType.UnsignedInteger, false);
-            var address =       window.CreateInputField("Address", new CursorPosition(45, 10), 30, InputType.String, false);
+            var ERROR_FIELD =   window.CreateErrorMessageField("Errorfield", new CursorPosition(0, 15),15, InputType.String,false);
+            var firstName =     window.CreateInputField("Etunimi", new CursorPosition(0, 10), 15, InputType.String, false);
+            var lastName =      window.CreateInputField("Sukunimi", new CursorPosition(20, 10), 15, InputType.String, false);
+            var age =           window.CreateInputField("Ikä", new CursorPosition(40, 10), 3, InputType.UnsignedInteger, false);
+            var address =       window.CreateInputField("Osoite", new CursorPosition(45, 10), 30, InputType.String, false);
             firstName.Label = "Etunimi";
             lastName.Label  = "Sukunimi";
             age.Label  = "Ikä";
@@ -31,9 +31,10 @@ namespace StateMachineDemo
             window.CreateStateTransition(address, StateEvent.Left, age);
             window.CreateStateTransition(address, StateEvent.Right, firstName);
             window.DrawInputFieldLabels();
-            window.SetCursorToInputField(firstName);
+            window.SetCursorToUIElement(firstName);
             while (true)
             {
+                
                 var key = Console.ReadKey(true);
                 
                 switch (key.Key) {
@@ -60,16 +61,8 @@ namespace StateMachineDemo
                             {
                                 window.ValidateInput();
                             }
-                            catch (InvalidInputException e){
-                                break;
-                                /*var fieldWhereError = window.GetCurrentUIElement();
-                                Console.SetCursorPosition(ERROR_FIELD.Position.Left, ERROR_FIELD.Position.Top);
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.BackgroundColor = ConsoleColor.White;
-                                Console.Write(e.Message);
-                                window.SetCursorToInputField(fieldWhereError);
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.BackgroundColor = ConsoleColor.Black;*/
+                            catch (InvalidInputException e) { 
+                                window.PrintErrorMessage(e.FieldName);
                             }
                             break;
                         }

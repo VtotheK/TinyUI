@@ -38,7 +38,7 @@ namespace StateMachineDemo
         public string FieldName => _fieldName;
         public CursorPosition ElementPosition => _elementposition;
         public CursorPosition LabelPosition => _labelPosition;
-        public string Buffer { get => _buffer.ToString(); }
+        public string BufferText { get => _buffer.ToString();}
         public string Label { get => label;
             set {
                 label = value;
@@ -70,9 +70,32 @@ namespace StateMachineDemo
             return false;
         }
 
+        public void EmptyBuffer(bool deleteVisuals)
+        {
+            if (deleteVisuals)
+            {
+                var cur = GetCursorPosition();
+                int left = cur.Left;
+                int top = cur.Top;
+                foreach(char c in BufferText)
+                {
+                    Console.SetCursorPosition(left, top);
+                    Console.Write("\b \b");
+                    --left;
+                }
+                _buffer.Clear();
+            }
+        }
+
         public CursorPosition GetCursorPosition()
         {
-            return new CursorPosition(ElementPosition.Left + Buffer.Length, ElementPosition.Top);
+            return new CursorPosition(ElementPosition.Left + BufferText.Length, ElementPosition.Top);
+        }
+
+        public void OverrideBuffer(string s)
+        {
+            _buffer.Clear();
+            _buffer.Append(s);
         }
     }
 }

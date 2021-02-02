@@ -20,9 +20,10 @@ namespace StateMachineDemo
     class WindowManager
     {
         List<InputField> _allFields = new List<InputField>();
+        Dictionary<StateChange, IUIElement> stateTransitions = new Dictionary<StateChange, IUIElement>();
+
         private InputField _errorInputField;
         private IUIElement _currenteElementPosition;
-        Dictionary<StateChange, IUIElement> stateTransitions = new Dictionary<StateChange, IUIElement>();
         readonly ConsoleColor _textColor;
         readonly ConsoleColor _errorTextColor;
 
@@ -80,16 +81,7 @@ namespace StateMachineDemo
             CursorPosition pos = _currenteElementPosition.GetCursorPosition();
             return pos;
         }
-
-        //Deprecated
-        /*public CursorPosition GetCurrentPosition(InputField field)
-        {
-            int top = field.Position.Top;
-            int left = field.Position.Left + field.BufferLength;
-            return new CursorPosition(left, top);
-        }*/ 
-
-        public void SetCursorToInputField(IUIElement element)
+        public void SetCursorToUIElement(IUIElement element)
         {
             _currenteElementPosition = element;
             var pos = _currenteElementPosition.GetCursorPosition();
@@ -126,7 +118,7 @@ namespace StateMachineDemo
                     switch (_allFields[i].InputType)
                     {
                         case InputType.String:
-                            if (Regex.Match(_allFields[i].Buffer, @"[0-9]@+$", RegexOptions.IgnoreCase).Success)
+                            if (Regex.Match(_allFields[i].BufferText, @"[0-9]@+$", RegexOptions.IgnoreCase).Success)
                             {
                                 throw new InvalidInputException(_allFields[i]);
                             }
@@ -134,7 +126,7 @@ namespace StateMachineDemo
 
                         case InputType.Integer:
                             int temp;
-                            if(!Int32.TryParse(_allFields[i].Buffer,out temp))
+                            if(!Int32.TryParse(_allFields[i].BufferText,out temp))
                             {
                                 throw new InvalidInputException(_allFields[i]);
                             }
@@ -142,8 +134,9 @@ namespace StateMachineDemo
 
                         case InputType.UnsignedInteger:
                             uint utemp;
-                            if(!UInt32.TryParse(_allFields[i].Buffer,out utemp))
+                            if(!UInt32.TryParse(_allFields[i].BufferText,out utemp))
                             {
+                                SetCursorToUIElement(_allFields[i]);
                                 throw new InvalidInputException(_allFields[i]);
                             }
                             break;
@@ -175,23 +168,31 @@ namespace StateMachineDemo
                 var field = (InputField)_currenteElementPosition;
                 if (field.AddChar(c))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = _textColor;
                     Console.Write(c);
-                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
 
-        public void PrintErrorMessage()
+        public void PrintErrorMessage(string fieldName)
         {
-            Console.SetCursorPosition(_errorInputField.ElementPosition.Left, _errorInputField.ElementPosition.Top);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.BackgroundColor = ConsoleColor.White;
-            //Console.Write(e.Message);
-            //window.SetCursorToInputField(fieldWhereError);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.BackgroundColor = ConsoleColor.Black;
+            if (_errorInputField != null)
+            {
+                if(_errorInputField.BufferText.Length > 0)
+                {
+                    _errorInputField.EmptyBuffer(true);
+                }
+                var currentElement = GetCurrentUIElement();
+                SetCursorToUIElement(_errorInputField);
+                Console.ForegroundColor = _errorTextColor;
+                Console.BackgroundColor = ConsoleColor.Black;
+                string errorMessage = $"Väärä syöte kentässä: {fieldName}";
+                Console.Write(errorMessage);
+                _errorInputField.OverrideBuffer(errorMessage);
+                Console.ForegroundColor = _textColor;
+                Console.BackgroundColor = ConsoleColor.Black;
+                SetCursorToUIElement(currentElement);
+            }
         }
-
     }
 }

@@ -6,13 +6,16 @@ namespace StateMachineDemo
 {
     class InvalidInputException : Exception
     {
+        string _fieldName;
         public InvalidInputException()
         {
 
         }
-        public InvalidInputException(InputField field) : base($"Virheellinen teksti kentässä:{field.Label}.")
+        public InvalidInputException(IUIElement field)
         {
-
+            _fieldName = field.FieldName;
         }
+
+        public string FieldName { get => _fieldName;}
     }
 }
