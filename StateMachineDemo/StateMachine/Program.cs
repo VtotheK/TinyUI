@@ -11,7 +11,7 @@ namespace StateMachineDemo
         
         static void Main(string[] args)
         {
-            WindowManager window = new WindowManager();
+            WindowManager window = new WindowManager(ConsoleColor.White,ConsoleColor.Red);
             Console.SetWindowSize(60, 40);
             var ERROR_FIELD =   window.CreateErrorMessageField("Errorfield", new CursorPosition(20, 20),15, InputType.String,false);
             var firstName =     window.CreateInputField("FirstName", new CursorPosition(0, 10), 15, InputType.String, false);
@@ -51,9 +51,7 @@ namespace StateMachineDemo
                         }
                     case ConsoleKey.Backspace:
                         {
-                            var field = window.GetInputField();
-                            if (field.DeleteChar()) 
-                                Console.Write("\b \b");
+                            window.DeleteCharacter();
                             break;
                         }
                     case ConsoleKey.Enter:
@@ -63,26 +61,27 @@ namespace StateMachineDemo
                                 window.ValidateInput();
                             }
                             catch (InvalidInputException e){
-                                var fieldWhereError = window.GetInputField();
+                                break;
+                                /*var fieldWhereError = window.GetCurrentUIElement();
                                 Console.SetCursorPosition(ERROR_FIELD.Position.Left, ERROR_FIELD.Position.Top);
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.BackgroundColor = ConsoleColor.White;
                                 Console.Write(e.Message);
                                 window.SetCursorToInputField(fieldWhereError);
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.BackgroundColor = ConsoleColor.Black;
+                                Console.BackgroundColor = ConsoleColor.Black;*/
                             }
                             break;
                         }
                     default:
                         {
-                            var field = window.GetInputField();
-                            if (field.AddChar(key.KeyChar))
+                            window.AddCharacter(key.KeyChar);
+                            /*if (field.AddChar(key.KeyChar))
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write(key.KeyChar);
                                 Console.ForegroundColor = ConsoleColor.White;
-                            }
+                            }*/
                             break;
                         }
                 }

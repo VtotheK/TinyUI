@@ -15,7 +15,7 @@ namespace StateMachineDemo
             _stateEvent = stateEvent;
         }
 
-        public int Field { get => _hash; }
+        public int FieldHash { get => _hash; }
         public StateEvent StateEvent { get => _stateEvent; set => _stateEvent = value; }
     }
 }

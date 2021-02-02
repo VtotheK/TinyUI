@@ -14,8 +14,8 @@ namespace StateMachineDemo
     public class InputField : IUIElement
     {
         private string label;
-        private CursorPosition _labelCoordinate;
-        private CursorPosition _position;
+        private CursorPosition _labelPosition;
+        private CursorPosition _elementposition;
         readonly string _fieldName;
         readonly int _maxchars;
         readonly InputType _inputType;
@@ -28,7 +28,7 @@ namespace StateMachineDemo
             _fieldName = fieldName;
             _maxchars = maxchars;
             _inputType = type;
-            _position = new CursorPosition(left, top);
+            _elementposition = new CursorPosition(left, top);
             _buffer = new StringBuilder(maxchars);
         }
 
@@ -36,15 +36,15 @@ namespace StateMachineDemo
         public int Maxchars => _maxchars;
         public InputType InputType => _inputType;
         public string FieldName => _fieldName;
-        public CursorPosition Position => _position;
-        public CursorPosition LabelCoordinate => _labelCoordinate;
+        public CursorPosition ElementPosition => _elementposition;
+        public CursorPosition LabelPosition => _labelPosition;
         public string Buffer { get => _buffer.ToString(); }
         public string Label { get => label;
             set {
                 label = value;
-                if (_labelCoordinate is null)
+                if (_labelPosition is null)
                 {
-                    _labelCoordinate = new CursorPosition(_position.Left, _position.Top - 1);
+                    _labelPosition = new CursorPosition(_elementposition.Left, _elementposition.Top - 1);
                 }
             } }
 
@@ -68,6 +68,11 @@ namespace StateMachineDemo
                 return true;
             }
             return false;
+        }
+
+        public CursorPosition GetCursorPosition()
+        {
+            return new CursorPosition(ElementPosition.Left + Buffer.Length, ElementPosition.Top);
         }
     }
 }

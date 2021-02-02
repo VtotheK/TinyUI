@@ -6,5 +6,9 @@ namespace StateMachineDemo
 {
     interface IUIElement
     {
+        public string FieldName { get; }
+        public CursorPosition ElementPosition { get;  }
+        public CursorPosition LabelPosition { get;  }
+        public CursorPosition GetCursorPosition();
     }
 }

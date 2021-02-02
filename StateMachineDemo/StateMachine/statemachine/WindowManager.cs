@@ -21,17 +21,24 @@ namespace StateMachineDemo
     {
         List<InputField> _allFields = new List<InputField>();
         private InputField _errorInputField;
-        private InputField _position;
-        Dictionary<StateChange, InputField> stateTransitions = new Dictionary<StateChange, InputField>();
+        private IUIElement _currenteElementPosition;
+        Dictionary<StateChange, IUIElement> stateTransitions = new Dictionary<StateChange, IUIElement>();
+        readonly ConsoleColor _textColor;
+        readonly ConsoleColor _errorTextColor;
 
-        public WindowManager()
+        #region Constructors
+        public WindowManager(ConsoleColor textColor, ConsoleColor errorTextColor)
         {
-
+            _textColor = textColor;
+            _errorTextColor = errorTextColor;
         }
-        public WindowManager(InputField position)
+        public WindowManager(InputField position, ConsoleColor textColor, ConsoleColor errorTextColor)
         {
-            _position = position;
+            _currenteElementPosition = position;
+            _textColor = textColor;
+            _errorTextColor = errorTextColor;
         }
+        #endregion
 
         public InputField ErrorInputField { get => _errorInputField; set => _errorInputField = value; }
 
@@ -64,32 +71,34 @@ namespace StateMachineDemo
         }
         public CursorPosition UserInput(StateEvent stateEvent)
         {
-            InputField newPosition;
-            if (!stateTransitions.TryGetValue(new StateChange(_position.FieldName.GetHashCode(), stateEvent), out newPosition))
+            IUIElement newPosition;
+            if (!stateTransitions.TryGetValue(new StateChange(_currenteElementPosition.FieldName.GetHashCode(), stateEvent), out newPosition))
             {
-                throw new StateTransitionException(_position.FieldName,stateEvent);
+                throw new StateTransitionException(_currenteElementPosition.FieldName,stateEvent);
             }
-            _position = newPosition;
-            CursorPosition pos = GetCurrentPosition(_position);
+            _currenteElementPosition = newPosition;
+            CursorPosition pos = _currenteElementPosition.GetCursorPosition();
             return pos;
         }
 
-        public CursorPosition GetCurrentPosition(InputField field)
+        //Deprecated
+        /*public CursorPosition GetCurrentPosition(InputField field)
         {
             int top = field.Position.Top;
             int left = field.Position.Left + field.BufferLength;
             return new CursorPosition(left, top);
+        }*/ 
+
+        public void SetCursorToInputField(IUIElement element)
+        {
+            _currenteElementPosition = element;
+            var pos = _currenteElementPosition.GetCursorPosition();
+            Console.SetCursorPosition(pos.Left, pos.Top);
         }
 
-        public void SetCursorToInputField(InputField field)
+        public IUIElement GetCurrentUIElement()
         {
-            _position = field;
-            Console.SetCursorPosition(field.Position.Left + field.BufferLength, field.Position.Top);
-        }
-
-        public InputField GetInputField()
-        {
-            return _position;
+            return _currenteElementPosition;
         }
 
         public void DrawInputFieldLabels()
@@ -97,7 +106,7 @@ namespace StateMachineDemo
             foreach(var field in _allFields)
             {
                 if(field.Label != null)
-                Console.SetCursorPosition(field.LabelCoordinate.Left, field.LabelCoordinate.Top);
+                Console.SetCursorPosition(field.LabelPosition.Left, field.LabelPosition.Top);
                 Console.Write(field.Label);
             }
         }
@@ -109,7 +118,7 @@ namespace StateMachineDemo
                 Debug.Write(_allFields[i].BufferLength+"\n");
                 if(!_allFields[i].NullValues && _allFields[i].BufferLength <= 0)
                 {
-                    _position = _allFields[i];
+                    _currenteElementPosition = _allFields[i];
                     throw new InvalidInputException(_allFields[i]);
                 }
                 else
@@ -147,9 +156,35 @@ namespace StateMachineDemo
             }
         }
 
+        public void DeleteCharacter()
+        {
+            if(_currenteElementPosition is InputField)
+            {
+                var field = (InputField) _currenteElementPosition;
+                if(field.DeleteChar())
+                {
+                    Console.Write("\b \b");
+                }
+            }
+        }
+
+        public void AddCharacter(char c)
+        {
+            if (_currenteElementPosition is InputField)
+            {
+                var field = (InputField)_currenteElementPosition;
+                if (field.AddChar(c))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(c);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+        }
+
         public void PrintErrorMessage()
         {
-            Console.SetCursorPosition(_errorInputField.Position.Left, _errorInputField.Position.Top);
+            Console.SetCursorPosition(_errorInputField.ElementPosition.Left, _errorInputField.ElementPosition.Top);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.BackgroundColor = ConsoleColor.White;
             //Console.Write(e.Message);
