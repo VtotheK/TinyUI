@@ -12,24 +12,24 @@ namespace StateMachineDemo
         static void Main(string[] args)
         {
             WindowManager window = new WindowManager();
-            Console.SetWindowSize(170, 40);
-            var ERROR_FIELD = window.CreateInputField("Errorfield", new CursorPosition(20, 20),15,typeof(string),true);
-            var firstName = window.CreateInputField("FirstName", new CursorPosition(10, 10), 15, typeof(string), true);
-            var lastName = window.CreateInputField("LastName", new CursorPosition(30, 10), 15, typeof(string), true);
-            var age = window.CreateInputField("Age", new CursorPosition(50, 10), 3, typeof(int), true);
-            var address = window.CreateInputField("Address", new CursorPosition(55, 10), 30, typeof(string), true);
+            Console.SetWindowSize(60, 40);
+            var ERROR_FIELD =   window.CreateErrorMessageField("Errorfield", new CursorPosition(20, 20),15, InputType.String,false);
+            var firstName =     window.CreateInputField("FirstName", new CursorPosition(0, 10), 15, InputType.String, false);
+            var lastName =      window.CreateInputField("LastName", new CursorPosition(20, 10), 15, InputType.String, false);
+            var age =           window.CreateInputField("Age", new CursorPosition(40, 10), 3, InputType.UnsignedInteger, false);
+            var address =       window.CreateInputField("Address", new CursorPosition(45, 10), 30, InputType.String, false);
             firstName.Label = "Etunimi";
             lastName.Label  = "Sukunimi";
             age.Label  = "Ikä";
             address.Label  = "Osoite";
-            window.CreateStateTransitions(firstName, StateEvent.Right, lastName);
-            window.CreateStateTransitions(firstName, StateEvent.Left, address);
-            window.CreateStateTransitions(lastName, StateEvent.Left, firstName);
-            window.CreateStateTransitions(lastName, StateEvent.Right, age);
-            window.CreateStateTransitions(age, StateEvent.Left, lastName);
-            window.CreateStateTransitions(age, StateEvent.Right, address);
-            window.CreateStateTransitions(address, StateEvent.Left, age);
-            window.CreateStateTransitions(address, StateEvent.Right, firstName);
+            window.CreateStateTransition(firstName, StateEvent.Right, lastName);
+            window.CreateStateTransition(firstName, StateEvent.Left, address);
+            window.CreateStateTransition(lastName, StateEvent.Left, firstName);
+            window.CreateStateTransition(lastName, StateEvent.Right, age);
+            window.CreateStateTransition(age, StateEvent.Left, lastName);
+            window.CreateStateTransition(age, StateEvent.Right, address);
+            window.CreateStateTransition(address, StateEvent.Left, age);
+            window.CreateStateTransition(address, StateEvent.Right, firstName);
             window.DrawInputFieldLabels();
             window.SetCursorToInputField(firstName);
             while (true)
@@ -63,10 +63,14 @@ namespace StateMachineDemo
                                 window.ValidateInput();
                             }
                             catch (InvalidInputException e){
+                                var fieldWhereError = window.GetInputField();
                                 Console.SetCursorPosition(ERROR_FIELD.Position.Left, ERROR_FIELD.Position.Top);
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.BackgroundColor = ConsoleColor.White;
                                 Console.Write(e.Message);
+                                window.SetCursorToInputField(fieldWhereError);
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.BackgroundColor = ConsoleColor.Black;
                             }
                             break;
                         }

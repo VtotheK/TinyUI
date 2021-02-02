@@ -10,7 +10,7 @@ namespace StateMachineDemo
         {
 
         }
-        public InvalidInputException(string fieldName) : base($"Invalid input at {fieldName}.")
+        public InvalidInputException(InputField field) : base($"Virheellinen teksti kentässä:{field.Label}.")
         {
 
         }
