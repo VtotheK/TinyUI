@@ -10,7 +10,7 @@ namespace StateMachineDemo
         public StateTransitionException(){
 
     }
-        public StateTransitionException(string fieldNameFrom, StateEvent stateEvent) : base
+        public StateTransitionException(string fieldNameFrom, NavigationStateEvent stateEvent) : base
             ($"Invalid state transition from {fieldNameFrom} with StateEvent:{stateEvent.ToString()}.")
         {
 

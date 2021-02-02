@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text;
@@ -6,21 +7,25 @@ using System.Text.RegularExpressions;
 
 namespace StateMachineDemo
 {
-    enum StateEvent
+    enum NavigationStateEvent
     {
         Right,
         Left,
         Up,
-        Down,
-        Return,
+        Down
+    }
+    enum ActionStateEvent
+    {
         Enter,
-        Input
+        Return,
+        Esc
     }
 
     class WindowManager
     {
         List<InputField> _allFields = new List<InputField>();
-        Dictionary<StateChange, IUIElement> stateTransitions = new Dictionary<StateChange, IUIElement>();
+        Dictionary<NavigationStateChange, IUIElement> navigationStateTransitions = new Dictionary<NavigationStateChange, IUIElement>();
+        Dictionary<ActionStateChange, Action> actionStateTransitions = new Dictionary<ActionStateChange, Action>();
 
         private InputField _errorInputField;
         private IUIElement _currenteElementPosition;
@@ -43,9 +48,24 @@ namespace StateMachineDemo
 
         public InputField ErrorInputField { get => _errorInputField; set => _errorInputField = value; }
 
-        public void CreateStateTransition(InputField fromField,StateEvent stateEvent, InputField toField)
+        public void CreateNavigationStateTransition(InputField fromField,NavigationStateEvent stateEvent, InputField toField)
         {
-            stateTransitions.Add(new StateChange(fromField.FieldName.GetHashCode(), stateEvent), toField);
+            navigationStateTransitions.Add(new NavigationStateChange(fromField.FieldName.GetHashCode(), stateEvent), toField);
+        }
+        public void CreateActionStateTransition(IUIElement fromElement,ActionStateEvent stateEvent, Action toAction)
+        {
+            actionStateTransitions.Add(new ActionStateChange(fromElement.FieldName.GetHashCode(),stateEvent), toAction);
+        }
+        public void Test()
+        {
+            Console.SetCursorPosition(45, 12);
+            Debug.WriteLine("Tallennetaan tietoja");
+            Thread.Sleep(3000);
+            Console.SetCursorPosition(46, 12);
+            Debug.WriteLine("Kylläpä kestää");
+            Thread.Sleep(3000);
+            Console.SetCursorPosition(47, 12);
+            Console.WriteLine("Tallennettu");
         }
         
         public InputField CreateInputField(string name, CursorPosition position, uint maxcharacters, InputType inputType, bool allowNullValues)
@@ -59,7 +79,6 @@ namespace StateMachineDemo
             return field;
         }
 
-
         public InputField CreateErrorMessageField(string name, CursorPosition position, uint maxcharacters, InputType inputType, bool allowNullValues)
         {
             if (name == null || maxcharacters <= 0)
@@ -70,16 +89,21 @@ namespace StateMachineDemo
             _errorInputField = field;
             return field;
         }
-        public CursorPosition UserInput(StateEvent stateEvent)
+        public CursorPosition UserInput(NavigationStateEvent stateEvent)
         {
             IUIElement newPosition;
-            if (!stateTransitions.TryGetValue(new StateChange(_currenteElementPosition.FieldName.GetHashCode(), stateEvent), out newPosition))
+            if (!navigationStateTransitions.TryGetValue(new NavigationStateChange(_currenteElementPosition.FieldName.GetHashCode(), stateEvent), out newPosition))
             {
                 throw new StateTransitionException(_currenteElementPosition.FieldName,stateEvent);
             }
             _currenteElementPosition = newPosition;
             CursorPosition pos = _currenteElementPosition.GetCursorPosition();
             return pos;
+        }
+
+        public bool InvokeAction()
+        {
+
         }
         public void SetCursorToUIElement(IUIElement element)
         {
@@ -188,7 +212,7 @@ namespace StateMachineDemo
                 Console.BackgroundColor = ConsoleColor.Black;
                 string errorMessage = $"Väärä syöte kentässä: {fieldName}";
                 Console.Write(errorMessage);
-                _errorInputField.OverrideBuffer(errorMessage);
+                _errorInputField.SetBuffer(errorMessage);
                 Console.ForegroundColor = _textColor;
                 Console.BackgroundColor = ConsoleColor.Black;
                 SetCursorToUIElement(currentElement);

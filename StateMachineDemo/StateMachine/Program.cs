@@ -22,14 +22,15 @@ namespace StateMachineDemo
             lastName.Label  = "Sukunimi";
             age.Label  = "Ikä";
             address.Label  = "Osoite";
-            window.CreateStateTransition(firstName, StateEvent.Right, lastName);
-            window.CreateStateTransition(firstName, StateEvent.Left, address);
-            window.CreateStateTransition(lastName, StateEvent.Left, firstName);
-            window.CreateStateTransition(lastName, StateEvent.Right, age);
-            window.CreateStateTransition(age, StateEvent.Left, lastName);
-            window.CreateStateTransition(age, StateEvent.Right, address);
-            window.CreateStateTransition(address, StateEvent.Left, age);
-            window.CreateStateTransition(address, StateEvent.Right, firstName);
+            window.CreateNavigationStateTransition(firstName, NavigationStateEvent.Right, lastName);
+            window.CreateNavigationStateTransition(firstName, NavigationStateEvent.Left, address);
+            window.CreateNavigationStateTransition(lastName, NavigationStateEvent.Left, firstName);
+            window.CreateNavigationStateTransition(lastName, NavigationStateEvent.Right, age);
+            window.CreateNavigationStateTransition(age, NavigationStateEvent.Left, lastName);
+            window.CreateNavigationStateTransition(age, NavigationStateEvent.Right, address);
+            window.CreateNavigationStateTransition(address, NavigationStateEvent.Left, age);
+            window.CreateNavigationStateTransition(address, NavigationStateEvent.Right, firstName);
+            window.CreateActionStateTransition(address, ActionStateEvent.Enter, window.Test);
             window.DrawInputFieldLabels();
             window.SetCursorToUIElement(firstName);
             while (true)
@@ -40,13 +41,13 @@ namespace StateMachineDemo
                 switch (key.Key) {
                     case ConsoleKey.RightArrow:
                         {
-                            var coord = window.UserInput(StateEvent.Right);
+                            var coord = window.UserInput(NavigationStateEvent.Right);
                             Console.SetCursorPosition(coord.Left, coord.Top);
                             break;
                         }
                     case ConsoleKey.LeftArrow:
                         {
-                            var coord = window.UserInput(StateEvent.Left);
+                            var coord = window.UserInput(NavigationStateEvent.Left);
                             Console.SetCursorPosition(coord.Left, coord.Top);
                             break;
                         }

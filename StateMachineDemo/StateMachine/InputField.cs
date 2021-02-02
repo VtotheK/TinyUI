@@ -92,7 +92,7 @@ namespace StateMachineDemo
             return new CursorPosition(ElementPosition.Left + BufferText.Length, ElementPosition.Top);
         }
 
-        public void OverrideBuffer(string s)
+        public void SetBuffer(string s)
         {
             _buffer.Clear();
             _buffer.Append(s);

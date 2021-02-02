@@ -4,18 +4,18 @@ using System.Text;
 
 namespace StateMachineDemo
 {
-    struct StateChange
+    struct NavigationStateChange
     {
         readonly int _hash;
-        StateEvent _stateEvent;
+        NavigationStateEvent _stateEvent;
 
-        public StateChange(int hash, StateEvent stateEvent)
+        public NavigationStateChange(int hash, NavigationStateEvent stateEvent)
         {
             _hash = hash;
             _stateEvent = stateEvent;
         }
 
         public int FieldHash { get => _hash; }
-        public StateEvent StateEvent { get => _stateEvent; set => _stateEvent = value; }
+        public NavigationStateEvent StateEvent { get => _stateEvent; set => _stateEvent = value; }
     }
 }
