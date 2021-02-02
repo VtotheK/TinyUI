@@ -69,12 +69,6 @@ namespace StateMachineDemo
                     default:
                         {
                             window.AddCharacter(key.KeyChar);
-                            /*if (field.AddChar(key.KeyChar))
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write(key.KeyChar);
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }*/
                             break;
                         }
                 }
