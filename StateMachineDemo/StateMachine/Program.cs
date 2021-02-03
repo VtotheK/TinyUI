@@ -61,6 +61,7 @@ namespace StateMachineDemo
                             try
                             {
                                 window.ValidateInput();
+                                
                             }
                             catch (InvalidInputException e) { 
                                 window.PrintErrorMessage(e.FieldName);
@@ -69,7 +70,10 @@ namespace StateMachineDemo
                         }
                     default:
                         {
-                            window.AddCharacter(key.KeyChar);
+                            if (key.Key != ConsoleKey.Tab)
+                            {
+                                window.AddCharacter(key.KeyChar);
+                            }
                             break;
                         }
                 }

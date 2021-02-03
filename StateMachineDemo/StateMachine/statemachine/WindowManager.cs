@@ -58,14 +58,20 @@ namespace StateMachineDemo
         }
         public void Test()
         {
-            Console.SetCursorPosition(45, 12);
-            Debug.WriteLine("Tallennetaan tietoja");
-            Thread.Sleep(3000);
-            Console.SetCursorPosition(46, 12);
-            Debug.WriteLine("Kylläpä kestää");
-            Thread.Sleep(3000);
-            Console.SetCursorPosition(47, 12);
-            Console.WriteLine("Tallennettu");
+            Console.SetCursorPosition(0, 16);
+            Console.WriteLine("Luetaan kentät.");
+            Thread.Sleep(1000);
+            Console.SetCursorPosition(0, 17);
+            Console.WriteLine("Otetaan yhteyttä Cambridge Analyticaan.");
+            Thread.Sleep(1500);
+            Console.SetCursorPosition(0, 18);
+            Console.WriteLine("Myydään henkilötietoja.");
+            Thread.Sleep(2000);
+            Console.SetCursorPosition(0, 19);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Myyty!");
+            Console.ForegroundColor = ConsoleColor.White;
+
         }
         
         public InputField CreateInputField(string name, CursorPosition position, uint maxcharacters, InputType inputType, bool allowNullValues)
@@ -103,7 +109,7 @@ namespace StateMachineDemo
 
         public bool InvokeAction()
         {
-
+            return false;
         }
         public void SetCursorToUIElement(IUIElement element)
         {
@@ -171,6 +177,8 @@ namespace StateMachineDemo
                     }
                 }
             }
+
+            Test();
         }
 
         public void DeleteCharacter()
