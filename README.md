@@ -41,10 +41,10 @@ Inputfield creation takes the following parameters:
 CreateInputField method returns **Inputfield** type object that was created inside WindowManager. Everytime you need to reference the inputfield you just created, you will use this object.
 If you want to give a label for this input field, InputField class has property **Label**.
 
-###Button field creation
+### Button field creation
 Let's create one button which will act as trigger to try validate the input fields and get the inputted data.
 
 ![Input field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateButtonField.jpg)
 
-###Movement between the fields
+### Movement between the fields
 Once you have declared the fields you need, it is time to create the movement logic between the input fields. This library only support movement by keyboard, no mouse. Let's create a 
