@@ -48,7 +48,7 @@ Let's create one button which will act as trigger to try validate the input fiel
 
 ![Input field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateButtonField.jpg)
 
-Buttonfield creation takes the following parameters:
+Buttonfield class constructor takes the following parameters:
 
 `string name` The name of the button field. Identifier for the button field, used to identify the button field, so use **unique names** for and between the input and button fields.
 
