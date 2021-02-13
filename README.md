@@ -1,5 +1,7 @@
 # TinyUI
-TinyUI is a small library to create buttons and input fields to .NET console applications. This library was created as a student project.
+TinyUI is a small library to create buttons and input fields to .NET console applications, and navigate between the fields with keyboard, no support for mouse navigation **currently**.
+
+This library was created as a student project.
 
 ## Tutorial
 
@@ -26,9 +28,9 @@ Using our WindowManager object, let's create two input fields, one for getting o
 
 ![Input field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/InputFields.jpg)
 
-Inputfield creation takes the following parameters:
+CreasteInputField takes the following parameters:
 
-`string name` The name of the input field. Identifier for the input field, used to identify the inputfield so **use unique names**. Will also be used later to read the input data from the user.
+`string name` The name of the input field. Identifier for the input field, used to identify the input field, so use **unique names** for and between the input and button fields. This property will also be used later to read the input data from the user.
 
 `Cursorposition position` Encapsulates the left and top positions where the inputfield will be drawn in the console. Cursonposition class constructor takes two arguments, _left_ and _top_. These will be the coordinates where the input field will **start**.
 
@@ -46,5 +48,14 @@ Let's create one button which will act as trigger to try validate the input fiel
 
 ![Input field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateButtonField.jpg)
 
+Buttonfield creation takes the following parameters:
+`string name` The name of the button field. Identifier for the button field, used to identify the button field, so use **unique names** for and between the input and button fields.
+
+`Cursorposition position` Look @ creation of input field.
+
+`string buttonLabel` The label for the button. This the text that will be highlighted/de-highlighted when moving between the fields.
+
 ### Movement between the fields
-Once you have declared the fields you need, it is time to create the movement logic between the input fields. This library only support movement by keyboard, no mouse. Let's create a 
+Once you have declared the fields you need, it is time to create the movement logic between the input fields. This library only support movement by keyboard, no mouse. Let's create a movement logic between the FirstName and Age fields.
+
+
