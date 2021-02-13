@@ -33,6 +33,7 @@ namespace TinyUI
         readonly ConsoleColor _errorTextColor;
         private ConsoleColor _buttonHighLightFgColor;
         private ConsoleColor _buttonHighLightBgColor;
+        private bool _terminated = false;
         #region Constructors
         public WindowManager(ConsoleColor textColor, ConsoleColor errorTextColor)
         {
@@ -281,6 +282,82 @@ namespace TinyUI
                     return NavigationStateEvent.Up;
                 default:
                     throw new ArgumentException("Unknown NavigationStateEvent.");
+            }
+        }
+
+        public void Terminate()
+        {
+            _terminated = true;
+        }
+
+        public void Init()
+        {
+            var currentElem = _currentElementPosition;
+            DrawUIElements();
+            SetCursorToUIElement(currentElem);
+            while (!_terminated)
+            {
+                var key = Console.ReadKey(true);
+                if(_currentElementPosition == null)
+                {
+                    throw new ArgumentException("Null _currentElementPosition when intializing WindowManager");
+                }
+                switch (key.Key)
+                {
+                    case ConsoleKey.RightArrow:
+                        {
+                            var coord = NavigationInput(NavigationStateEvent.Right);
+                            if(coord != null)
+                                Console.SetCursorPosition(coord.Left, coord.Top);
+                            break;
+                        }
+                    case ConsoleKey.LeftArrow:
+                        {
+                            var coord = NavigationInput(NavigationStateEvent.Left);
+                            if (coord != null)
+                                Console.SetCursorPosition(coord.Left, coord.Top);
+                            break;
+                        }
+                    case ConsoleKey.UpArrow:
+                        {
+                            var coord = NavigationInput(NavigationStateEvent.Up);
+                            if (coord != null)
+                                Console.SetCursorPosition(coord.Left, coord.Top);
+                            break;
+                        }
+                    case ConsoleKey.DownArrow:
+                        {
+                            var coord = NavigationInput(NavigationStateEvent.Down);
+                            if (coord != null)
+                                Console.SetCursorPosition(coord.Left, coord.Top);
+                            break;
+                        }
+                    case ConsoleKey.Backspace:
+                        {
+                            DeleteCharacter();
+                            break;
+                        }
+                    case ConsoleKey.Enter:
+                        {
+                            try
+                            {
+                                ValidateInputFields();
+                            }
+                            catch (InvalidInputException e)
+                            {
+                                PrintErrorMessage(e.InputFieldName);
+                            }
+                            break;
+                        }
+                    default:
+                        {
+                            if (key.Key != ConsoleKey.Tab)
+                            {
+                                AddCharacter(key);
+                            }
+                            break;
+                        }
+                }
             }
         }
     }

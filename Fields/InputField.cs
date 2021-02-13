@@ -187,10 +187,12 @@ namespace TinyUI
             if (Label != null)
             {
                 int mid = 0;
-                if(1==1)
+                /*
+                if(1==2)
                 {
-                    mid = (Maxchars / 2) - (Label.Length / 2)-1;
+                    mid = (Maxchars / 2) - (Label.Length / 2)-1; TODO Figure out how this could work
                 }
+                */
                 Console.SetCursorPosition(LabelPosition.Left+mid, LabelPosition.Top);
                 Console.Write(Label);
             }
