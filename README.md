@@ -26,17 +26,27 @@ Using our WindowManager object, let's create two input fields, one for getting o
 
 Inputfield creation takes the following parameters:
 
-```cs string name```
+```cs 
+string name
+```
 The name of the input field. Identifier for the input field, used to identify the inputfield so **use unique names**. Will also be used later to read the input data from the user.
 
-```cs Cursorposition position```
+```cs 
+Cursorposition position
+```
 Encapsulates the left and top positions where the inputfield will be drawn. Cursonposition class constructor takes two arguments, _left_ and _top_. These will be the coordinates where the input field will **start**.
 
-```cs uint maxcharacters```
+```cs 
+uint maxcharacters
+```
 Maximum amount of characters the input field will take. 
 
-```cs InputType inputType```
+```cs 
+InputType inputType
+```
 Determines what the field will accept as input. Only numbers, strings with no number or special characters etc.
 
-```cs bool allowNullValues```
+```cs 
+bool allowNullValues
+```
 When the inputfield(s) will be validated, do you allow this field to be empty? 
