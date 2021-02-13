@@ -7,15 +7,15 @@ namespace TinyUI
     struct NavigationStateChange
     {
         readonly int _hash;
-        NavigationStateEvent _stateEvent;
+        ConsoleKey _stateEvent;
 
-        public NavigationStateChange(int hash, NavigationStateEvent stateEvent)
+        public NavigationStateChange(int hash, ConsoleKey key)
         {
             _hash = hash;
-            _stateEvent = stateEvent;
+            _stateEvent = key;
         }
 
         public int FieldHash { get => _hash; }
-        public NavigationStateEvent StateEvent { get => _stateEvent; set => _stateEvent = value; }
+        public ConsoleKey StateEvent { get => _stateEvent; set => _stateEvent = value; }
     }
 }

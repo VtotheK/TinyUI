@@ -54,14 +54,14 @@ namespace TinyUI
 
         public ConsoleColor ButtonHighLightBgColor { get => _buttonHighLightBgColor; set => _buttonHighLightBgColor = value; }
 
-        public void CreateNavigationStateTransition(IUIElement fromField,NavigationStateEvent stateEvent, IUIElement toField, bool bothWays = false)
+        public void CreateNavigationStateTransition(IUIElement fromField,ConsoleKey key, IUIElement toField, bool bothWays = false)
         {
             try
             {
-                navigationStateTransitions.Add(new NavigationStateChange(fromField.FieldName.GetHashCode(), stateEvent), toField);
+                navigationStateTransitions.Add(new NavigationStateChange(fromField.FieldName.GetHashCode(), key), toField);
                 if (bothWays)
                 {
-                    var oppositeEvent = GetOppositeNavigationStateEvent(stateEvent);
+                    var oppositeEvent = GetOppositeNavigationStateEvent(key);
                     CreateNavigationStateTransition(toField, oppositeEvent, fromField, false);
                 }
             }
@@ -109,10 +109,10 @@ namespace TinyUI
             _errorInputField = field;
             return field;
         }
-        public CursorPosition NavigationInput(NavigationStateEvent stateEvent)
+        public CursorPosition NavigationInput(ConsoleKey key)
         {
             IUIElement newPosition;
-            if (!navigationStateTransitions.TryGetValue(new NavigationStateChange(_currentElementPosition.FieldName.GetHashCode(), stateEvent), out newPosition))
+            if (!navigationStateTransitions.TryGetValue(new NavigationStateChange(_currentElementPosition.FieldName.GetHashCode(), key), out newPosition))
             {
                 return null;
             }
@@ -268,18 +268,18 @@ namespace TinyUI
             }
         }
 
-        private NavigationStateEvent GetOppositeNavigationStateEvent(NavigationStateEvent stateEvent)
+        private ConsoleKey GetOppositeNavigationStateEvent(ConsoleKey key)
         {
-            switch (stateEvent)
+            switch (key)
             {
-                case NavigationStateEvent.Left:
-                    return NavigationStateEvent.Right;
-                case NavigationStateEvent.Right:
-                    return NavigationStateEvent.Left;
-                case NavigationStateEvent.Up:
-                    return NavigationStateEvent.Down;
-                case NavigationStateEvent.Down:
-                    return NavigationStateEvent.Up;
+                case ConsoleKey.LeftArrow:
+                    return ConsoleKey.RightArrow;
+                case ConsoleKey.RightArrow:
+                    return ConsoleKey.LeftArrow;
+                case ConsoleKey.UpArrow:
+                    return ConsoleKey.DownArrow;
+                case ConsoleKey.DownArrow:
+                    return ConsoleKey.UpArrow;
                 default:
                     throw new ArgumentException("Unknown NavigationStateEvent.");
             }
@@ -306,28 +306,28 @@ namespace TinyUI
                 {
                     case ConsoleKey.RightArrow:
                         {
-                            var coord = NavigationInput(NavigationStateEvent.Right);
+                            var coord = NavigationInput(ConsoleKey.RightArrow);
                             if(coord != null)
                                 Console.SetCursorPosition(coord.Left, coord.Top);
                             break;
                         }
                     case ConsoleKey.LeftArrow:
                         {
-                            var coord = NavigationInput(NavigationStateEvent.Left);
+                            var coord = NavigationInput(ConsoleKey.LeftArrow);
                             if (coord != null)
                                 Console.SetCursorPosition(coord.Left, coord.Top);
                             break;
                         }
                     case ConsoleKey.UpArrow:
                         {
-                            var coord = NavigationInput(NavigationStateEvent.Up);
+                            var coord = NavigationInput(ConsoleKey.UpArrow);
                             if (coord != null)
                                 Console.SetCursorPosition(coord.Left, coord.Top);
                             break;
                         }
                     case ConsoleKey.DownArrow:
                         {
-                            var coord = NavigationInput(NavigationStateEvent.Down);
+                            var coord = NavigationInput(ConsoleKey.DownArrow);
                             if (coord != null)
                                 Console.SetCursorPosition(coord.Left, coord.Top);
                             break;

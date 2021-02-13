@@ -46,7 +46,7 @@ namespace TinyUI
             _buffer = new StringBuilder(maxchars);
         }
 
-        public InputField(string fieldName,string label CursorPosition position, int maxchars, InputType type, bool nullValues)
+        public InputField(string fieldName,string label, CursorPosition position, int maxchars, InputType type, bool nullValues)
         {
             _nullValues = nullValues;
             _fieldName = fieldName;
