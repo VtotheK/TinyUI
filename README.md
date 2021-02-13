@@ -1,5 +1,5 @@
 # TinyUI
-TinyUI is a small library to create buttons and input fields to .NET console applications
+TinyUI is a small library to create buttons and input fields to .NET console applications. This library was created as a student project.
 
 ## Tutorial
 
@@ -12,7 +12,7 @@ Create a class called HelloWorldWindow and create a method called "CreateUI" ins
 
 Inside your main function, instansiate a HelloWorldWindow object, and make a call to the CreateUI method.
 
-Next you need to instansiate a WindowManager object, either inside the CreateUI method or you can create one inside your HelloWorldWindow class constructor. WindowManager is the class that you will mostly deal when creating the UI.
+Next you need to instansiate a WindowManager object, either inside the CreateUI method or you can create one inside your HelloWorldWindow class constructor, or just create a field once the HelloWorldWindow is instansiated. In the following picture the last option was used WindowManager is the class that you will mostly deal when creating the UI.
 
 WindowManager construtor takes two `ConsoleColor` parameters, one for the input text color, one for printing error messages to the user.
 
@@ -22,16 +22,29 @@ At this point our HelloWorldWindow class should look something like this:
 
 Using our WindowManager object, let's create two input fields, one for getting our first name, and second to get our age:
 
+###Inputfield creation
+
 ![Input field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/InputFields.jpg)
 
 Inputfield creation takes the following parameters:
 
 `string name` The name of the input field. Identifier for the input field, used to identify the inputfield so **use unique names**. Will also be used later to read the input data from the user.
 
-`Cursorposition position` Encapsulates the left and top positions where the inputfield will be drawn. Cursonposition class constructor takes two arguments, _left_ and _top_. These will be the coordinates where the input field will **start**.
+`Cursorposition position` Encapsulates the left and top positions where the inputfield will be drawn in the console. Cursonposition class constructor takes two arguments, _left_ and _top_. These will be the coordinates where the input field will **start**.
 
 `uint maxcharacters`Maximum amount of characters the input field will take. 
 
-`InputType inputType` Determines what the field will accept as input. Only numbers, strings with no number or special characters etc.
+`InputType inputType` Determines what the field will accept as input. Only numbers, strings with no number or special characters, string with no numbers but special characters are allowed etc.
 
 `bool allowNullValues` When the inputfield(s) will be validated, do you allow this field to be empty? 
+
+CreateInputField method returns **Inputfield** type object that was created inside WindowManager. Everytime you need to reference the inputfield you just created, you will use this object.
+If you want to give a label for this input field, InputField class has property **Label**.
+
+###Button field creation
+Let's create one button which will act as trigger to try validate the input fields and get the inputted data.
+
+![Input field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateButtonField.jpg)
+
+###Movement between the fields
+Once you have declared the fields you need, it is time to create the movement logic between the input fields. This library only support movement by keyboard, no mouse. Let's create a 
