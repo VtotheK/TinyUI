@@ -145,7 +145,7 @@ namespace TinyUI
             }
         }
 
-        public Action ActionInput(ActionStateEvent stateEvent)
+        private Action ActionInput(ActionStateEvent stateEvent)
         {
             Action act;
             if (!_actionStateTransitions.TryGetValue(new ActionStateChange(_currentElementPosition.FieldName.GetHashCode(), stateEvent), out act))
@@ -212,7 +212,7 @@ namespace TinyUI
             }
         }
 
-        public void ValidateInputFields()
+        private void ValidateInputFields()
         {
             for(int i = 0; i < _allInputFields.Count; ++i)
             {
@@ -222,7 +222,7 @@ namespace TinyUI
                 }
             }
         }
-        public void DeleteCharacter()
+        private void DeleteCharacter()
         {
             if(_currentElementPosition is InputField)
             {
@@ -234,7 +234,7 @@ namespace TinyUI
             }
         }
 
-        public void AddCharacter(ConsoleKeyInfo c)
+        private void AddCharacter(ConsoleKeyInfo c)
         {
             if (_currentElementPosition is InputField && c.Key != ConsoleKey.Tab)
             {

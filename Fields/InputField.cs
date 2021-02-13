@@ -46,6 +46,18 @@ namespace TinyUI
             _buffer = new StringBuilder(maxchars);
         }
 
+        public InputField(string fieldName,string label CursorPosition position, int maxchars, InputType type, bool nullValues)
+        {
+            _nullValues = nullValues;
+            _fieldName = fieldName;
+            _maxchars = maxchars;
+            _inputType = type;
+            _elementPosition = position;
+            _buffer = new StringBuilder(maxchars);
+            Label = label; //need to set label cursorposition as well
+        }
+
+
         public int BufferLength => _buffer.Length;
         public int Maxchars => _maxchars;
         public InputType InputType => _inputType;
@@ -200,20 +212,16 @@ namespace TinyUI
             {
                 int topDecorLen = Maxchars;
                 int left = ElementPosition.Left;
-                int top = 0;
                 if (_decorators.LeftDecorator != 0 && ElementPosition.Left - 1 >= 0)
                 {
                     Console.SetCursorPosition(ElementPosition.Left - 1, ElementPosition.Top);
-                    //--left;
                     Console.Write(_decorators.LeftDecorator);
-                    //++topDecorLen;
                 }
 
                 if(_decorators.RightDecorator != 0 && ElementPosition.Left + topDecorLen <= Console.WindowWidth)
                 {
                     Console.SetCursorPosition(ElementPosition.Left + Maxchars, ElementPosition.Top);
                     Console.Write(_decorators.RightDecorator);
-                    //++topDecorLen;
                 }
 
                 if(_decorators.TopDecorator != 0 && ElementPosition.Top - 1 > 0 && ElementPosition.Left + topDecorLen <= Console.WindowWidth)
