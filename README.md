@@ -13,9 +13,9 @@ Let's create a class that will hold the code  UI logic and funtion declarations 
 HelloWorldWindow window = new HelloWorldWindow();
 ```
 
-Let's create a method inside MyNewWindowClass that will hold the inputfield and button declarations, as well as button press logic.
-We will call this method CreateUI
-```cs
-public void CreateUI()
-```
+Let's create a method inside our HelloWorldWindow class that will hold the inputfield and button declarations, as well as button press logic. We will call this method CreateUI
 
+At this point our HelloWorldWindow class should look something like this:
+
+![Initial class file](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateWindowManager.jpg)
+Format: ![Alt Text](url)
