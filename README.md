@@ -16,7 +16,7 @@ Inside your main function, instansiate a HelloWorldWindow object, and make a cal
 
 Next you need to instansiate a WindowManager object, either inside the CreateUI method or you can create one inside your HelloWorldWindow class constructor, or just create a field once the HelloWorldWindow is instansiated. In the following picture the last option was used WindowManager is the class that you will mostly deal when creating the UI.
 
-WindowManager construtor takes two `ConsoleColor` parameters, one for the input text color, one for printing error messages to the user.
+WindowManager construtor takes two `ConsoleColor` parameters, first for the input text color, second for printing error messages to the user.
 
 At this point our HelloWorldWindow class should look something like this:
 
