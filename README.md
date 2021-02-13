@@ -17,5 +17,6 @@ Next you need to instansiate a WindowManager object, either inside the CreateUI 
 WindowManager construtor takes two `ConsoleColor` parameters, one for the input text color, one for printing error messages to the user.
 
 At this point our HelloWorldWindow class should look something like this:
+
 ![Initial class file](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateWindowManager.jpg)
 
