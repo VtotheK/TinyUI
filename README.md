@@ -46,12 +46,12 @@ Using our WindowManager object, let's create two input fields, one for getting o
 ### Inputfield
 ```cs
  public void CreateUI()
-        {
-            InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
-            InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
-            firstName.Label = "First name";
-            age.Label = "Age";
-        }
+ {
+    InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
+    InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
+    firstName.Label = "First name";
+    age.Label = "Age";
+}
 ```
 WindowManger has a method `CreateInputField` for creating the input fields. This method takes the following parameters:
 
@@ -72,16 +72,16 @@ If you want to give a label for this input field, InputField class has property 
 ### Button field
 
 ```cs
-        public void CreateUI()
-        {
-            InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
-            InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
-            
-            firstName.Label = "First name";
-            age.Label = "Age";
-            
-            ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
-        }
+public void CreateUI()
+{
+    InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
+    InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
+
+    firstName.Label = "First name";
+    age.Label = "Age";
+
+    ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
+}
 ```
 
 Let's create one button which will act as trigger to try validate the input fields and get the inputted data.
@@ -100,18 +100,18 @@ Once you have declared the fields you need, it is time to create the movement lo
 Use the `CreateNavigationTransition` method to save the wanted movement logic between the fields. This method saves the transitions into dictionary, which will be used by the internal statemachine to determine where to move the cursor at runtime.
 
 ```cs
-        public void CreateUI()
-        {
-            InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
-            InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
-            
-            firstName.Label = "First name";
-            age.Label = "Age";
+public void CreateUI()
+{
+    InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
+    InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
 
-            ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
+    firstName.Label = "First name";
+    age.Label = "Age";
 
-            manager.CreateNavigationStateTransition(firstName, ConsoleKey.RightArrow, age, true);
-        }
+    ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
+
+    manager.CreateNavigationStateTransition(firstName, ConsoleKey.RightArrow, age, true);
+}
 ```
 
 `CreateNavigationTransition` method takes the following arguments:
@@ -129,20 +129,20 @@ Use the `CreateNavigationTransition` method to save the wanted movement logic be
 Let's create the rest of the navigation transitions to complete the navigation in our UI.
 
 ```cs
-        public void CreateUI()
-        {
-            InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
-            InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
-            firstName.Label = "First name";
-            age.Label = "Age";
+public void CreateUI()
+{
+    InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
+    InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
+    firstName.Label = "First name";
+    age.Label = "Age";
 
-            ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
+    ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
 
-            manager.CreateNavigationStateTransition(firstName, ConsoleKey.RightArrow, age, true);
-            manager.CreateNavigationStateTransition(firstName, ConsoleKey.DownArrow, sendButton, true);
-            manager.CreateNavigationStateTransition(age, ConsoleKey.DownArrow, sendButton, false);
+    manager.CreateNavigationStateTransition(firstName, ConsoleKey.RightArrow, age, true);
+    manager.CreateNavigationStateTransition(firstName, ConsoleKey.DownArrow, sendButton, true);
+    manager.CreateNavigationStateTransition(age, ConsoleKey.DownArrow, sendButton, false);
 
-            manager.SetCursorToUIElement(firstName);
-            manager.Init();
-        }
+    manager.SetCursorToUIElement(firstName);
+    manager.Init();
+}
 ```
