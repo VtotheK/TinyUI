@@ -20,33 +20,39 @@ WindowManager construtor takes two `ConsoleColor` parameters, first for the inpu
 
 At this point our HelloWorldWindow class should look something like this:
 ```cs
+using System;
+using TinyUI;
+
+namespace MyApp
+{
+    class HelloWorldWindow
+    {
+        private WindowManager manager = new WindowManager(ConsoleColor.White, ConsoleColor.Red);
+        public HelloWorldWindow() 
+        {
+
+        }
+
+        public void CreateUI()
+        {
+            
+        }
+    }
+}
+```
+
+Using our WindowManager object, let's create two input fields, one for getting our first name, and second to get our age:
+
+### Inputfield
+```cs
  public void CreateUI()
         {
             InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
             InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
             firstName.Label = "First name";
             age.Label = "Age";
-
-            ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
-
-            manager.CreateNavigationStateTransition(firstName, ConsoleKey.RightArrow, age, true);
-            manager.CreateNavigationStateTransition(firstName, ConsoleKey.DownArrow, sendButton, true);
-            manager.CreateNavigationStateTransition(age, ConsoleKey.DownArrow, sendButton, false);
-
-            manager.SetCursorToUIElement(firstName);
-            manager.Init();
         }
 ```
-TESSTTT
-
-![Initial class file](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateWindowManager.jpg)
-
-Using our WindowManager object, let's create two input fields, one for getting our first name, and second to get our age:
-
-### Inputfield
-
-![Input field](https://github.com/VtotheK/TinyUI/blob/master/Doc/InputFields.jpg)
-
 WindowManger has a method `CreateInputField` for creating the input fields. This method takes the following parameters:
 
 `string name` The name of the input field. Identifier for the input field, used to identify the input field, so use **unique names** for and between the input and button fields. This property will also be used later to read the input data from the user.
@@ -64,9 +70,21 @@ CreateInputField method returns **Inputfield** type object that was created insi
 If you want to give a label for this input field, InputField class has property **Label**.
 
 ### Button field
-Let's create one button which will act as trigger to try validate the input fields and get the inputted data.
 
-![Button field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateButtonField.jpg)
+```cs
+        public void CreateUI()
+        {
+            InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
+            InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
+            
+            firstName.Label = "First name";
+            age.Label = "Age";
+            
+            ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
+        }
+```
+
+Let's create one button which will act as trigger to try validate the input fields and get the inputted data.
 
 Just like the input field, there is a method for creating button fields inside the WindowManager class. CreateButtonField method takes the following argumenets:
 
@@ -81,7 +99,20 @@ Once you have declared the fields you need, it is time to create the movement lo
 
 Use the `CreateNavigationTransition` method to save the wanted movement logic between the fields. This method saves the transitions into dictionary, which will be used by the internal statemachine to determine where to move the cursor at runtime.
 
-![Navigationstatetransition creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/NavigationStateTransitionArgs.jpg)
+```cs
+        public void CreateUI()
+        {
+            InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
+            InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
+            
+            firstName.Label = "First name";
+            age.Label = "Age";
+
+            ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
+
+            manager.CreateNavigationStateTransition(firstName, ConsoleKey.RightArrow, age, true);
+        }
+```
 
 `CreateNavigationTransition` method takes the following arguments:
 
@@ -97,4 +128,21 @@ Use the `CreateNavigationTransition` method to save the wanted movement logic be
 
 Let's create the rest of the navigation transitions to complete the navigation in our UI.
 
-![bothWays argument](https://github.com/VtotheK/TinyUI/blob/master/Doc/First%20look.jpg)
+```cs
+        public void CreateUI()
+        {
+            InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
+            InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
+            firstName.Label = "First name";
+            age.Label = "Age";
+
+            ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
+
+            manager.CreateNavigationStateTransition(firstName, ConsoleKey.RightArrow, age, true);
+            manager.CreateNavigationStateTransition(firstName, ConsoleKey.DownArrow, sendButton, true);
+            manager.CreateNavigationStateTransition(age, ConsoleKey.DownArrow, sendButton, false);
+
+            manager.SetCursorToUIElement(firstName);
+            manager.Init();
+        }
+```
