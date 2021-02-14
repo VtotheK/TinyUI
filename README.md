@@ -19,6 +19,25 @@ Next you need to instansiate a WindowManager object, either inside the CreateUI 
 WindowManager construtor takes two `ConsoleColor` parameters, first for the input text color, second for printing error messages to the user.
 
 At this point our HelloWorldWindow class should look something like this:
+```cs
+ public void CreateUI()
+        {
+            InputField firstName = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
+            InputField age = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
+            firstName.Label = "First name";
+            age.Label = "Age";
+
+            ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
+
+            manager.CreateNavigationStateTransition(firstName, ConsoleKey.RightArrow, age, true);
+            manager.CreateNavigationStateTransition(firstName, ConsoleKey.DownArrow, sendButton, true);
+            manager.CreateNavigationStateTransition(age, ConsoleKey.DownArrow, sendButton, false);
+
+            manager.SetCursorToUIElement(firstName);
+            manager.Init();
+        }
+```
+TESSTTT
 
 ![Initial class file](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateWindowManager.jpg)
 
@@ -76,3 +95,6 @@ Use the `CreateNavigationTransition` method to save the wanted movement logic be
 
 ![bothWays argument](https://github.com/VtotheK/TinyUI/blob/master/Doc/NavigationStateTransitionBothWays.jpg)
 
+Let's create the rest of the navigation transitions to complete the navigation in our UI.
+
+![bothWays argument](https://github.com/VtotheK/TinyUI/blob/master/Doc/First%20look.jpg)
