@@ -57,7 +57,7 @@ Just like the input field, there is a method for creating button fields inside t
 
 `string buttonLabel` The label for the button. This the text that will be highlighted/de-highlighted when activating/de-activating the button.
 
-### Movement between the fields
+### Navigation between the fields
 Once you have declared the fields you need, it is time to create the movement logic between the input fields. This library only support movement by keyboard, no mouse. Let's create a movement logic between the FirstName and Age fields.
 
 Use the `CreateNavigationTransition` method to save the wanted movement logic between the fields. This method saves the transitions into dictionary, which will be used by the internal statemachine to determine where to move the cursor at runtime.
@@ -66,8 +66,13 @@ Use the `CreateNavigationTransition` method to save the wanted movement logic be
 
 `CreateNavigationTransition` method takes the following arguments:
 
-```cs
-IUIElement fromField
-``` 
-any object that implements the `IUIElement` interface. 
+`IUIElement fromField` Any object that implements the `IUIElement` interface. The field from which you want the transition to be made to some other field.
+
+`ConsoleKey key` The keyboard key, that you want to bind as a trigger for executing the transition.
+
+`IUIElement toField` Any object that implements the `IUIElement` interface. The target field where you want to end up when the trigger is executed.
+
+`bool bothWays` Do you want to create back-and-forth transition between the objects? See picture below.
+
+![bothWays argument(https://github.com/VtotheK/TinyUI/blob/master/Doc/NavigationStateTransitionBothWays.jpg)
 
