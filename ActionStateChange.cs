@@ -7,9 +7,9 @@ namespace TinyUI
     struct ActionStateChange
     {
         readonly int _hash;
-        private ActionStateEvent _stateEvent;
+        private ConsoleKey _stateEvent;
 
-        public ActionStateChange(int hash, ActionStateEvent stateEvent)
+        public ActionStateChange(int hash, ConsoleKey stateEvent)
         {
             _hash = hash;
             _stateEvent = stateEvent;
@@ -17,6 +17,6 @@ namespace TinyUI
 
         public int Hash => _hash;
 
-        public ActionStateEvent StateEvent { get => _stateEvent; set => _stateEvent = value; }
+        public ConsoleKey StateEvent { get => _stateEvent; set => _stateEvent = value; }
     }
 }

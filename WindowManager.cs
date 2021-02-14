@@ -58,7 +58,10 @@ namespace TinyUI
 
         public void CreateNavigationStateTransition(IUIElement fromField,ConsoleKey key, IUIElement toField, bool bothWays = false)
         {
-            if()
+            if(bothWays && key != ConsoleKey.UpArrow && key != ConsoleKey.DownArrow && key != ConsoleKey.LeftArrow && key != ConsoleKey.RightArrow)
+            {
+                bothWays = false;
+            }
             try
             {
                 navigationStateTransitions.Add(new NavigationStateChange(fromField.FieldName.GetHashCode(), key), toField);
