@@ -24,7 +24,7 @@ At this point our HelloWorldWindow class should look something like this:
 
 Using our WindowManager object, let's create two input fields, one for getting our first name, and second to get our age:
 
-###Inputfield creation
+### Inputfield creation
 
 ![Input field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/InputFields.jpg)
 
