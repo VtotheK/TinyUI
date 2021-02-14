@@ -1,5 +1,5 @@
 # TinyUI
-TinyUI is a small library to create buttons and input fields to .NET console applications, and navigate between the fields with keyboard, no support for mouse navigation **currently**.
+TinyUI is a small library to create buttons and input fields to .NET console applications, and navigate between the fields with keyboard. You can filter the input data and get multiple user inputs with one static console screen.
 
 This library was created as a student project.
 
