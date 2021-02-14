@@ -62,7 +62,7 @@ Once you have declared the fields you need, it is time to create the movement lo
 
 Use the `CreateNavigationTransition` method to save the wanted movement logic between the fields. This method saves the transitions into dictionary, which will be used by the internal statemachine to determine where to move the cursor at runtime.
 
-![Navigationstatetransition creation(https://github.com/VtotheK/TinyUI/blob/master/Doc/NavigationStateTransitionArgs.jpg)
+![Navigationstatetransition creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/NavigationStateTransitionArgs.jpg)
 
 `CreateNavigationTransition` method takes the following arguments:
 
@@ -74,5 +74,5 @@ Use the `CreateNavigationTransition` method to save the wanted movement logic be
 
 `bool bothWays` Do you want to create back-and-forth transition between the objects? See picture below.
 
-![bothWays argument(https://github.com/VtotheK/TinyUI/blob/master/Doc/NavigationStateTransitionBothWays.jpg)
+![bothWays argument](https://github.com/VtotheK/TinyUI/blob/master/Doc/NavigationStateTransitionBothWays.jpg)
 
