@@ -146,3 +146,9 @@ public void CreateUI()
     manager.Init();
 }
 ```
+At this point our navigation diagram looks like this
+
+![Navigation diagram](https://github.com/VtotheK/TinyUI/blob/master/Doc/NavigationDiagram.jpg)
+
+You also need to call `SetCursorToUIElement` to specify the starting point where the cursor will be. This method accepts object as argument that implements `IUIElement` interface.  
+`Init` function draws the UI elements and starts to take input from the user.
