@@ -33,6 +33,7 @@ namespace TinyUI
         readonly ConsoleColor _errorTextColor;
         private ConsoleColor _buttonHighLightFgColor;
         private ConsoleColor _buttonHighLightBgColor;
+        private string _errorMessageBody;
         private bool _terminated = false;
         #region Constructors
         public WindowManager(ConsoleColor textColor, ConsoleColor errorTextColor)
@@ -53,9 +54,11 @@ namespace TinyUI
         public ConsoleColor ButtonHighLightFgColor { get => _buttonHighLightFgColor; set => _buttonHighLightFgColor = value; }
 
         public ConsoleColor ButtonHighLightBgColor { get => _buttonHighLightBgColor; set => _buttonHighLightBgColor = value; }
+        public string ErrorMessageBody { get => _errorMessageBody; set => _errorMessageBody = value; }
 
         public void CreateNavigationStateTransition(IUIElement fromField,ConsoleKey key, IUIElement toField, bool bothWays = false)
         {
+            if()
             try
             {
                 navigationStateTransitions.Add(new NavigationStateChange(fromField.FieldName.GetHashCode(), key), toField);
@@ -72,7 +75,7 @@ namespace TinyUI
                 return;
             }
         }
-        public void CreateActionStateTransition(IUIElement fromElement,ActionStateEvent stateEvent, Action toAction)
+        public void CreateActionStateTransition(IUIElement fromElement, ConsoleKey stateEvent, Action toAction)
         {
            _actionStateTransitions.Add(new ActionStateChange(fromElement.FieldName.GetHashCode(), stateEvent), toAction);
         }
@@ -145,7 +148,7 @@ namespace TinyUI
             }
         }
 
-        private Action ActionInput(ActionStateEvent stateEvent)
+        private Action ActionInput(ConsoleKey stateEvent)
         {
             Action act;
             if (!_actionStateTransitions.TryGetValue(new ActionStateChange(_currentElementPosition.FieldName.GetHashCode(), stateEvent), out act))
@@ -259,7 +262,7 @@ namespace TinyUI
                 SetCursorToUIElement(_errorInputField);
                 Console.ForegroundColor = _errorTextColor;
                 Console.BackgroundColor = ConsoleColor.Black;
-                string errorMessage = $"Väärä syöte kentässä: {fieldName}";
+                string errorMessage = $"{ErrorMessageBody} : {fieldName}";
                 Console.Write(errorMessage);
                 _errorInputField.SetBuffer(errorMessage);
                 Console.ForegroundColor = _inputTextColor;
@@ -281,7 +284,7 @@ namespace TinyUI
                 case ConsoleKey.DownArrow:
                     return ConsoleKey.UpArrow;
                 default:
-                    throw new ArgumentException("Unknown NavigationStateEvent.");
+                    throw new ArgumentException("Unknown key provided for getting opposite navigation state event.");
             }
         }
 
@@ -292,9 +295,8 @@ namespace TinyUI
 
         public void Init()
         {
-            var currentElem = _currentElementPosition;
             DrawUIElements();
-            SetCursorToUIElement(currentElem);
+            SetCursorToUIElement(_currentElementPosition);
             while (!_terminated)
             {
                 var key = Console.ReadKey(true);
