@@ -24,11 +24,11 @@ At this point our HelloWorldWindow class should look something like this:
 
 Using our WindowManager object, let's create two input fields, one for getting our first name, and second to get our age:
 
-### Inputfield creation
+### Inputfield
 
-![Input field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/InputFields.jpg)
+![Input field](https://github.com/VtotheK/TinyUI/blob/master/Doc/InputFields.jpg)
 
-CreasteInputField takes the following parameters:
+WindowManger has a method `CreateInputField` for creating the input fields. This method takes the following parameters:
 
 `string name` The name of the input field. Identifier for the input field, used to identify the input field, so use **unique names** for and between the input and button fields. This property will also be used later to read the input data from the user.
 
@@ -40,23 +40,34 @@ CreasteInputField takes the following parameters:
 
 `bool allowNullValues` When the inputfield(s) will be validated, do you allow this field to be empty? 
 
-CreateInputField method returns **Inputfield** type object that was created inside WindowManager. Everytime you need to reference the inputfield you just created, you will use this object.
+CreateInputField method returns **Inputfield** type object that was created inside WindowManager. Everytime you need to reference the inputfield you just created, you need use this object.
+
 If you want to give a label for this input field, InputField class has property **Label**.
 
-### Button field creation
+### Button field
 Let's create one button which will act as trigger to try validate the input fields and get the inputted data.
 
-![Input field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateButtonField.jpg)
+![Button field creation](https://github.com/VtotheK/TinyUI/blob/master/Doc/CreateButtonField.jpg)
 
-Buttonfield class constructor takes the following parameters:
+Just like the input field, there is a method for creating button fields inside the WindowManager class. CreateButtonField method takes the following argumenets:
 
 `string name` The name of the button field. Identifier for the button field, used to identify the button field, so use **unique names** for and between the input and button fields.
 
 `Cursorposition position` Look @ creation of input field.
 
-`string buttonLabel` The label for the button. This the text that will be highlighted/de-highlighted when moving between the fields.
+`string buttonLabel` The label for the button. This the text that will be highlighted/de-highlighted when activating/de-activating the button.
 
 ### Movement between the fields
 Once you have declared the fields you need, it is time to create the movement logic between the input fields. This library only support movement by keyboard, no mouse. Let's create a movement logic between the FirstName and Age fields.
 
+Use the `CreateNavigationTransition` method to save the wanted movement logic between the fields. This method saves the transitions into dictionary, which will be used by the internal statemachine to determine where to move the cursor at runtime.
+
+![Navigationstatetransition creation(https://github.com/VtotheK/TinyUI/blob/master/Doc/NavigationStateTransitionArgs.jpg)
+
+`CreateNavigationTransition` method takes the following arguments:
+
+````cs
+IUIElement fromField
+```, 
+any object that implements the `IUIElement` interface. 
 
