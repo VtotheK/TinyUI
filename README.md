@@ -14,7 +14,7 @@ Create a class called HelloWorldWindow and create a method called "CreateUI" ins
 
 Inside your main function, instansiate a HelloWorldWindow object, and make a call to the CreateUI method.
 
-Next you need to instansiate a WindowManager object, either inside the CreateUI method or you can create one inside your HelloWorldWindow class constructor, or just create a field once the HelloWorldWindow is instansiated. In the following picture the last option was used WindowManager is the class that you will mostly deal when creating the UI.
+Next you need to instansiate a WindowManager object. You can do it inside the CreateUI method, or you can create one inside your HelloWorldWindow class constructor, or just create a field when the HelloWorldWindow class is instansiated. 
 
 WindowManager construtor takes two `ConsoleColor` parameters, first for the input text color, second for printing error messages to the user.
 
@@ -41,7 +41,7 @@ namespace MyApp
 }
 ```
 
-Using our WindowManager object, let's create two input fields, one for getting our first name, and second to get our age:
+Using our WindowManager object, let's create two input fields, one for getting user's first name, and second to get user's age:
 
 ### Inputfield
 ```cs
@@ -55,7 +55,7 @@ Using our WindowManager object, let's create two input fields, one for getting o
 ```
 WindowManger has a method `CreateInputField` for creating the input fields. This method takes the following parameters:
 
-`string name` The name of the input field. Identifier for the input field, used to identify the input field, so use **unique names** for and between the input and button fields. This property will also be used later to read the input data from the user.
+`string name` Identifier for the input field, so use **unique names** for and between the input and button fields. This property will also be used later to read the input data from the user.
 
 `Cursorposition position` Encapsulates the left and top positions where the inputfield will be drawn in the console. Cursonposition class constructor takes two arguments, _left_ and _top_. These will be the coordinates where the input field will **start**.
 
@@ -84,11 +84,11 @@ public void CreateUI()
 }
 ```
 
-Let's create one button which will act as trigger to try validate the input fields and get the inputted data.
+Let's create one button which will act as a trigger to read the data from the input fields.
 
-Just like the input field, there is a method for creating button fields inside the WindowManager class. CreateButtonField method takes the following argumenets:
+Like with the input field, there is a method for creating button fields inside the WindowManager class. CreateButtonField method takes the following argumenets:
 
-`string name` The name of the button field. Identifier for the button field, used to identify the button field, so use **unique names** for and between the input and button fields.
+`string name` Identifier for the button field, used to identify the button field, so use **unique names** for and between the input and button fields.
 
 `Cursorposition position` Look @ creation of input field.
 
