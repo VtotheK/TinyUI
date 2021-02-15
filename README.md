@@ -152,3 +152,8 @@ At this point our navigation diagram looks like this
 
 You also need to call `SetCursorToUIElement` to specify the starting point where the cursor will be. This method accepts object as argument that implements `IUIElement` interface.  
 `Init` function draws the UI elements and starts to take input from the user.
+
+Small demo what we have done so far
+![giphy demo gif](https://giphy.com/gifs/AdEwiBNCMoSI96zVR8.gif)
+
+### Button invoke function call
