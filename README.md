@@ -154,6 +154,7 @@ You also need to call `SetCursorToUIElement` to specify the starting point where
 `Init` function draws the UI elements and starts to take input from the user.
 
 Small demo what we have done so far
+
 ![giphy demo gif](https://media0.giphy.com/media/AdEwiBNCMoSI96zVR8/giphy.gif)
 
 ### Button invoke function call
