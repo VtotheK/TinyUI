@@ -290,7 +290,7 @@ namespace TinyUI
                     throw new ArgumentException("Unknown key provided for getting opposite navigation state event.");
             }
         }
-
+///<summary>Terminate the internal WindowManager Init loop and return back to caller</summary>
         public void Terminate()
         {
             _terminated = true;

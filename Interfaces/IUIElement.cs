@@ -6,11 +6,11 @@ namespace TinyUI
 {
     interface IUIElement
     {
-        public ElementDecorators Decorators { get; set; }
-        public string FieldName { get; }
-        public CursorPosition ElementPosition { get;  }
-        public CursorPosition LabelPosition { get;  }
-        public CursorPosition GetCursorPosition();
-        public void DrawField();
+        ElementDecorators Decorators { get; set; }
+        string FieldName { get; }
+        CursorPosition ElementPosition { get;  }
+        CursorPosition LabelPosition { get;  }
+        CursorPosition GetCursorPosition();
+        void DrawField();
     }
 }
