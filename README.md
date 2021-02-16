@@ -219,3 +219,22 @@ private void SendMessage()
 This function calls `WindowManager.GetDataFromInputFields` function, which returns a `Dictionary<string,string>` object which will contain the data from the inputfield(s) . The __key__ for the dictionary is the InputField.FieldName property, and the __value__ for the key is the inputted data by the user. Small demo below.
 
 ![giphy demo gif](https://media4.giphy.com/media/T96oiRNyoISklxRRbQ/giphy.gif)
+
+Let's add a small finishing touch by adding decorator around our inputfields by instasiating `ElementDecorators` object and passing into constructor the chars that we want to decorate our field with. Then pass that object to `WindowManager.AddDecors` along with the fields you want to add them to.
+```cs
+public void CreateUI()
+{
+    ...
+    ElementDecorators decors = new ElementDecorators(null,null,'[',']');
+    manager.AddDecors(decors, firstNameField, ageField);
+    
+    ButtonField sendButton = manager.CreateButtonField("sendButton", new CursorPosition(13, 5), "Send");
+    ...
+    manager.SetCursorToUIElement(firstNameField);
+    manager.Init();
+}
+```
+
+And we end up with.
+
+![giphy demo gif](https://media1.giphy.com/media/3O6EHAb59Xe2gUC6xY/giphy.gif)
