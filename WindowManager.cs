@@ -303,66 +303,32 @@ namespace TinyUI
             while (!_terminated)
             {
                 var key = Console.ReadKey(true);
-                if(_currentElementPosition == null)
+                var coord = NavigationInput(key.Key);
+                if(coord != null)
+                    Console.SetCursorPosition(coord.Left, coord.Top);
+                else if(coord == null)
                 {
-                    throw new ArgumentException("Null _currentElementPosition when intializing WindowManager");
+                    Action act = ActionInput(key.Key);
+                    if (act != null)
+                        act.Invoke();
+                    else if(key.Key == ConsoleKey.Backspace)
+                    {
+                        DeleteCharacter();
+                    }
+                    else if (key.Key != ConsoleKey.Tab && key.Key != ConsoleKey.Enter)
+                    {
+                        AddCharacter(key);
+                    }
                 }
-                switch (key.Key)
-                {
-                    case ConsoleKey.RightArrow:
-                        {
-                            var coord = NavigationInput(ConsoleKey.RightArrow);
-                            if(coord != null)
-                                Console.SetCursorPosition(coord.Left, coord.Top);
-                            break;
-                        }
-                    case ConsoleKey.LeftArrow:
-                        {
-                            var coord = NavigationInput(ConsoleKey.LeftArrow);
-                            if (coord != null)
-                                Console.SetCursorPosition(coord.Left, coord.Top);
-                            break;
-                        }
-                    case ConsoleKey.UpArrow:
-                        {
-                            var coord = NavigationInput(ConsoleKey.UpArrow);
-                            if (coord != null)
-                                Console.SetCursorPosition(coord.Left, coord.Top);
-                            break;
-                        }
-                    case ConsoleKey.DownArrow:
-                        {
-                            var coord = NavigationInput(ConsoleKey.DownArrow);
-                            if (coord != null)
-                                Console.SetCursorPosition(coord.Left, coord.Top);
-                            break;
-                        }
-                    case ConsoleKey.Backspace:
-                        {
-                            DeleteCharacter();
-                            break;
-                        }
-                    case ConsoleKey.Enter:
-                        {
-                            try
-                            {
-                                ValidateInputFields();
-                            }
-                            catch (InvalidInputException e)
-                            {
-                                PrintErrorMessage(e.InputFieldName);
-                            }
-                            break;
-                        }
-                    default:
-                        {
-                            if (key.Key != ConsoleKey.Tab)
-                            {
-                                AddCharacter(key);
-                            }
-                            break;
-                        }
-                }
+                
+            }
+        }
+
+        public void AddDecors(ElementDecorators decor, params IUIElement[] elements)
+        {
+            foreach(IUIElement elem in elements)
+            {
+                elem.Decorators = decor;
             }
         }
     }

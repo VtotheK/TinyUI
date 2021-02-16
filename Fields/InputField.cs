@@ -35,7 +35,7 @@ namespace TinyUI
         readonly InputType _inputType;
         readonly bool _nullValues;
         private StringBuilder _buffer;
-        private InputFieldDecorators _decorators;
+        private ElementDecorators _decorators;
         public InputField(string fieldName, CursorPosition position, int maxchars, InputType type, bool nullValues)
         {
             _nullValues = nullValues;
@@ -78,10 +78,10 @@ namespace TinyUI
 
         public bool NullValues => _nullValues;
 
-        public InputFieldDecorators Decorators { get => _decorators;
+        public ElementDecorators Decorators { get => _decorators;
             set { 
                 _decorators = value;
-                if (_decorators.TopDecorator != 0 && LabelPosition.Top - 1 >= 0)
+                if (_decorators.TopDecorator != null && LabelPosition.Top - 1 >= 0)
                 {
                     int top = LabelPosition.Top - 1;
                     int left = LabelPosition.Left;
@@ -212,28 +212,28 @@ namespace TinyUI
             {
                 int topDecorLen = Maxchars;
                 int left = ElementPosition.Left;
-                if (_decorators.LeftDecorator != 0 && ElementPosition.Left - 1 >= 0)
+                if (_decorators.LeftDecorator != null && ElementPosition.Left - 1 >= 0)
                 {
                     Console.SetCursorPosition(ElementPosition.Left - 1, ElementPosition.Top);
                     Console.Write(_decorators.LeftDecorator);
                 }
 
-                if(_decorators.RightDecorator != 0 && ElementPosition.Left + topDecorLen <= Console.WindowWidth)
+                if(_decorators.RightDecorator != null && ElementPosition.Left + topDecorLen <= Console.WindowWidth)
                 {
                     Console.SetCursorPosition(ElementPosition.Left + Maxchars, ElementPosition.Top);
                     Console.Write(_decorators.RightDecorator);
                 }
 
-                if(_decorators.TopDecorator != 0 && ElementPosition.Top - 1 > 0 && ElementPosition.Left + topDecorLen <= Console.WindowWidth)
+                if(_decorators.TopDecorator != null && ElementPosition.Top - 1 > 0 && ElementPosition.Left + topDecorLen <= Console.WindowWidth)
                 {
-                    string decorStr = new String(_decorators.TopDecorator, topDecorLen);
+                    string decorStr = new String((char)_decorators.TopDecorator, topDecorLen);
                     Console.SetCursorPosition(left, ElementPosition.Top - 1);
                     Console.Write(decorStr);
                 }
 
-                if(_decorators.BottomDecorator != 0 && ElementPosition.Top + 1 <= Console.WindowHeight && ElementPosition.Left + topDecorLen <= Console.WindowWidth)
+                if(_decorators.BottomDecorator != null && ElementPosition.Top + 1 <= Console.WindowHeight && ElementPosition.Left + topDecorLen <= Console.WindowWidth)
                 {
-                    string decorStr = new String(_decorators.BottomDecorator, topDecorLen);
+                    string decorStr = new String((char)_decorators.BottomDecorator, topDecorLen);
                     Console.SetCursorPosition(left, ElementPosition.Top + 1);
                     Console.Write(decorStr);
                 }

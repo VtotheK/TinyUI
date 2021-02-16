@@ -11,6 +11,7 @@ namespace TinyUI
         private CursorPosition _elementPosition;
         private CursorPosition _labelPosition;
         private string _label;
+        private ElementDecorators _elementDecorators;
 
         public ButtonField(string fieldName, CursorPosition position, string label)
         {
@@ -36,6 +37,7 @@ namespace TinyUI
             }
         }
 
+        public ElementDecorators Decorators { get => _elementDecorators; set => _elementDecorators = value; }
         public CursorPosition GetCursorPosition()
         {
             return _elementPosition;
