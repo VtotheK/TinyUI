@@ -139,13 +139,17 @@ namespace TinyUI
 
         public bool ValidateField()
         {
-            if (NullValues && BufferLength <= 0)
+            if (!NullValues && BufferLength <= 0)
             {
                 return false;
             }
             else if(NullValues && BufferLength == 0)
             {
                 return true;
+            }
+            else if(BufferLength > Maxchars)
+            {
+                return false;
             }
             else
             {
@@ -176,7 +180,6 @@ namespace TinyUI
                         return true;
 
                     case InputType.UnsignedInteger:
-                        uint utemp;
                         if (Regex.Match(BufferText, "[a-zA-Z äÄåÅöÖ]", RegexOptions.IgnoreCase).Success
                             || Regex.Match(BufferText, pattern, RegexOptions.IgnoreCase).Success
                             || BufferText[0] == '-')
