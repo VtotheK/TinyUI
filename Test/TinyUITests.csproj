@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TinyUI.csproj" />
+    <ProjectReference Include="..\TinyUI.csproj" />
   </ItemGroup>
 
 </Project>

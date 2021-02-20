@@ -57,10 +57,10 @@ namespace TinyUITests
             fieldOnlyInt.SetBuffer("-10");
             Assert.True(fieldOnlyInt.ValidateField());
         }
-
+        [Test]
         public void InputFieldValidationUInt()
         {
-            InputField uintField = new InputField("TestfieldUint", new CursorPosition(20, 10), 3,InputType.UnsignedInteger true);
+            InputField uintField = new InputField("TestfieldUint", new CursorPosition(20, 10), 3,InputType.UnsignedInteger, true);
             Assert.IsEmpty(uintField.BufferText);
             uintField.SetBuffer("-2");
             Assert.False(uintField.ValidateField());

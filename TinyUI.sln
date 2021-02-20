@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyUI", "TinyUI.csproj", "{EE064ABB-2E5E-4D22-BD16-207846C04459}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyUITests", "Test\TinyUITests\TinyUITests.csproj", "{368AE6B9-00A6-494D-9E0A-5FA2966B0352}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyUITests", "Test\TinyUITests.csproj", "{368AE6B9-00A6-494D-9E0A-5FA2966B0352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
