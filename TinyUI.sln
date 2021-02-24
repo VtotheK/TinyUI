@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyUI", "TinyUI.csproj", "{EE064ABB-2E5E-4D22-BD16-207846C04459}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyUITests", "Test\TinyUITests.csproj", "{368AE6B9-00A6-494D-9E0A-5FA2966B0352}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE064ABB-2E5E-4D22-BD16-207846C04459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE064ABB-2E5E-4D22-BD16-207846C04459}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE064ABB-2E5E-4D22-BD16-207846C04459}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE064ABB-2E5E-4D22-BD16-207846C04459}.Release|Any CPU.Build.0 = Release|Any CPU
+		{368AE6B9-00A6-494D-9E0A-5FA2966B0352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368AE6B9-00A6-494D-9E0A-5FA2966B0352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368AE6B9-00A6-494D-9E0A-5FA2966B0352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368AE6B9-00A6-494D-9E0A-5FA2966B0352}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D19CD77-6832-4DBD-9376-3CE02BC4EE75}
+	EndGlobalSection
+EndGlobal

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TinyUI
 {
-    class ButtonField : IUIElement
+    public class ButtonField : IUIElement
     {
         readonly string _fieldName;
         private CursorPosition _elementPosition;
