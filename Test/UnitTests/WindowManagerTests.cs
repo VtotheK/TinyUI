@@ -22,5 +22,25 @@ namespace TinyUITests
             manager.NavigationInput(System.ConsoleKey.RightArrow);
             Assert.AreSame(firstField, manager.GetCurrentUIElement());
         }
+
+        [Test]
+        public void CurrentElementTest()
+        {
+            WindowManager manager = new WindowManager(System.ConsoleColor.White, System.ConsoleColor.Red);
+            var btn = manager.CreateButtonField("TestButton", new CursorPosition(2, 2), "TestLabel");
+            Assert.IsInstanceOf<ButtonField>(btn);
+            manager.SetCursorToUIElement(btn);
+
+            var btnref = manager.GetCurrentUIElement();
+            Assert.AreSame(btn, btnref);
+
+            var otherbutton = manager.CreateButtonField("OtherTestButton", new CursorPosition(1, 1), "TestLabel");
+
+            manager.SetCursorToUIElement(otherbutton);
+            Assert.AreNotSame(otherbutton, btn);
+
+            manager.SetCursorToUIElement(btn);
+            Assert.AreSame(btn, btnref);
+        }
     }
 }

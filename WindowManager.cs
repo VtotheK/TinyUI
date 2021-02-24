@@ -21,20 +21,20 @@ namespace TinyUI
         Esc
     }
 
-    class WindowManager
+    public class WindowManager
     {
         List<InputField> _allInputFields = new List<InputField>();
         List<ButtonField> _allButtonFields = new List<ButtonField>();
         Dictionary<NavigationStateChange, IUIElement> navigationStateTransitions = new Dictionary<NavigationStateChange, IUIElement>();
         Dictionary<ActionStateChange, Action> _actionStateTransitions = new Dictionary<ActionStateChange, Action>();
-        private InputField _errorInputField;
-        private IUIElement _currentElementPosition;
+        InputField _errorInputField;
+        IUIElement _currentElementPosition;
         readonly ConsoleColor _inputTextColor;
         readonly ConsoleColor _errorTextColor;
-        private ConsoleColor _buttonHighLightFgColor;
-        private ConsoleColor _buttonHighLightBgColor;
-        private string _errorMessageBody;
-        private bool _terminated = false;
+        ConsoleColor _buttonHighLightFgColor;
+        ConsoleColor _buttonHighLightBgColor;
+        string _errorMessageBody;
+        bool _terminated = false;
         #region Constructors
         public WindowManager(ConsoleColor textColor, ConsoleColor errorTextColor)
         {

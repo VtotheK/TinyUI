@@ -11,7 +11,7 @@ namespace TinyUITests
         const string TESTINT = "TestfieldInt";
         const string TESTSPEC = "TestFieldSpec";
         const string TESTBUFFER = "Buffertest";
-        WindowManager manager = new WindowManager(ConsoleColor.White,ConsoleColor.Red);
+       
         [SetUp]
         public void Setup()
         {
@@ -20,6 +20,7 @@ namespace TinyUITests
         [Test]
         public void InputFieldBufferTests()
         {
+            WindowManager manager = new WindowManager(ConsoleColor.White, ConsoleColor.Red);
             InputField letterBuffer = manager.CreateInputField(TESTBUFFER, new CursorPosition(20, 20), 20,InputType.StringNoNumbersNoSpecialCharacters, false);
             letterBuffer.SetBuffer("abcdefghiljklmnopqrs");
             Assert.True(letterBuffer.ValidateField());
@@ -40,6 +41,7 @@ namespace TinyUITests
         [Test]
         public void InputFieldValidationStringOnlyLetters()
         {
+            WindowManager manager = new WindowManager(ConsoleColor.White, ConsoleColor.Red);
             InputField fieldNoSpec = manager.CreateInputField(TESTSPEC, new CursorPosition(10, 10),20,InputType.StringNoNumbersNoSpecialCharacters,false);
             Assert.IsEmpty(fieldNoSpec.BufferText);
             fieldNoSpec.SetBuffer("ab$");
@@ -52,6 +54,7 @@ namespace TinyUITests
         [Test]
         public void InputFieldValidationOnlyIntegerAndNull()
         {
+            WindowManager manager = new WindowManager(ConsoleColor.White, ConsoleColor.Red);
             InputField fieldOnlyInt = manager.CreateInputField(TESTINT, new CursorPosition(10, 10),10,InputType.Integer, true);
             Assert.True(fieldOnlyInt.ValidateField());
             Assert.IsEmpty(fieldOnlyInt.BufferText);
@@ -69,6 +72,7 @@ namespace TinyUITests
         [Test]
         public void InputFieldValidationUInt()
         {
+            WindowManager manager = new WindowManager(ConsoleColor.White, ConsoleColor.Red);
             InputField uintField = manager.CreateInputField(TESTUINT, new CursorPosition(20, 10), 3,InputType.UnsignedInteger, true);
             Assert.IsEmpty(uintField.BufferText);
             uintField.SetBuffer("-2");
@@ -85,11 +89,16 @@ namespace TinyUITests
         [Test]
         public void AllInputs()
         {
+            WindowManager manager = new WindowManager(ConsoleColor.White, ConsoleColor.Red);
+            var testbuf = manager.CreateInputField(TESTBUFFER, new CursorPosition(1, 1), 10, InputType.String, true);
+            var testuint = manager.CreateInputField(TESTUINT, new CursorPosition(1, 1), 10, InputType.String, true);
             var data = manager.GetDataFromInputFields();
             Assert.IsInstanceOf<Dictionary<string, string>>(data);
             Assert.Throws<KeyNotFoundException>( () => { var a = data["NoSuchKey"]; });
             Assert.DoesNotThrow( () => { var a = data[TESTBUFFER]; });
             Assert.DoesNotThrow( () => { var a = data[TESTUINT]; });
+            Assert.IsInstanceOf<InputField>(testbuf);
+            Assert.IsInstanceOf<InputField>(testuint);
         }
     }
 }
