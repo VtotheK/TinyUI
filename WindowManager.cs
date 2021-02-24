@@ -21,11 +21,7 @@ namespace TinyUI
         Esc
     }
 
-<<<<<<< HEAD
     class WindowManager
-=======
-    public class WindowManager
->>>>>>> 778089a80e5031955f69c2c202d8cc174709dd34
     {
         List<InputField> _allInputFields = new List<InputField>();
         List<ButtonField> _allButtonFields = new List<ButtonField>();
@@ -294,11 +290,9 @@ namespace TinyUI
                     throw new ArgumentException("Unknown key provided for getting opposite navigation state event.");
             }
         }
-<<<<<<< HEAD
 
-=======
 ///<summary>Terminate the internal WindowManager Init loop and return back to caller</summary>
->>>>>>> 778089a80e5031955f69c2c202d8cc174709dd34
+
         public void Terminate()
         {
             _terminated = true;
