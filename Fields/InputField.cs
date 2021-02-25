@@ -36,6 +36,7 @@ namespace TinyUI
         readonly bool _nullValues;
         private StringBuilder _buffer;
         private ElementDecorators _decorators;
+        private Action _elementAction;
         public InputField(string fieldName, CursorPosition position, int maxchars, InputType type, bool nullValues)
         {
             _nullValues = nullValues;
@@ -77,6 +78,8 @@ namespace TinyUI
 
 
         public bool NullValues => _nullValues;
+        public Action ElementAction { get => _elementAction; set => _elementAction = value; } 
+
 
         public ElementDecorators Decorators { get => _decorators;
             set { 
@@ -89,6 +92,8 @@ namespace TinyUI
                 }
             }
         }
+
+
 
         public bool AddCharToBuffer(char character)
         {

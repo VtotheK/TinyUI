@@ -24,6 +24,7 @@ namespace TinyUITests
             InputField letterBuffer = manager.CreateInputField(TESTBUFFER, new CursorPosition(20, 20), 20,InputType.StringNoNumbersNoSpecialCharacters, false);
             letterBuffer.SetBuffer("abcdefghiljklmnopqrs");
             Assert.True(letterBuffer.ValidateField());
+            Assert.Greater(letterBuffer.BufferLength,10);
             letterBuffer.AddCharToBuffer('t');
             Assert.True(letterBuffer.ValidateField());
             letterBuffer.EmptyBuffer(false);
@@ -54,26 +55,30 @@ namespace TinyUITests
         [Test]
         public void InputFieldValidationOnlyIntegerAndNull()
         {
+            int temp;
             WindowManager manager = new WindowManager(ConsoleColor.White, ConsoleColor.Red);
             InputField fieldOnlyInt = manager.CreateInputField(TESTINT, new CursorPosition(10, 10),10,InputType.Integer, true);
             Assert.True(fieldOnlyInt.ValidateField());
             Assert.IsEmpty(fieldOnlyInt.BufferText);
             Assert.AreEqual(10, fieldOnlyInt.Maxchars);
             fieldOnlyInt.SetBuffer("123123123");
+            Assert.GreaterOrEqual(fieldOnlyInt.BufferLength,9);
+            Assert.True(Int32.TryParse(fieldOnlyInt.BufferText, out temp));
             Assert.True(fieldOnlyInt.ValidateField());
             fieldOnlyInt.AddCharToBuffer('c');
             Assert.False(fieldOnlyInt.ValidateField());
+            Assert.False(Int32.TryParse(fieldOnlyInt.BufferText, out temp));
             Assert.True(fieldOnlyInt.DeleteChar());
             Assert.True(fieldOnlyInt.ValidateField());
             fieldOnlyInt.SetBuffer("-10");
             Assert.True(fieldOnlyInt.ValidateField());
-            fieldOnlyInt.SetBuffer("123");
         }
         [Test]
         public void InputFieldValidationUInt()
         {
             WindowManager manager = new WindowManager(ConsoleColor.White, ConsoleColor.Red);
-            InputField uintField = manager.CreateInputField(TESTUINT, new CursorPosition(20, 10), 3,InputType.UnsignedInteger, true);
+            var uintField = manager.CreateInputField(TESTUINT, new CursorPosition(20, 10), 3,InputType.UnsignedInteger, true);
+            Assert.IsInstanceOf<InputField>(uintField);
             Assert.IsEmpty(uintField.BufferText);
             uintField.SetBuffer("-2");
             Assert.False(uintField.ValidateField());
@@ -83,11 +88,10 @@ namespace TinyUITests
             Assert.True(uintField.ValidateField());
             uintField.SetBuffer("1%");
             Assert.False(uintField.ValidateField());
-            uintField.SetBuffer("150");
         }
 
         [Test]
-        public void AllInputs()
+        public void GetAllInputs()
         {
             WindowManager manager = new WindowManager(ConsoleColor.White, ConsoleColor.Red);
             var testbuf = manager.CreateInputField(TESTBUFFER, new CursorPosition(1, 1), 10, InputType.String, true);

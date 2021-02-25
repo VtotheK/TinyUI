@@ -80,7 +80,8 @@ namespace TinyUI
         }
         public void CreateActionStateTransition(IUIElement fromElement, ConsoleKey stateEvent, Action toAction)
         {
-           _actionStateTransitions.Add(new ActionStateChange(fromElement.FieldName.GetHashCode(), stateEvent), toAction);
+            _actionStateTransitions.Add(new ActionStateChange(fromElement.FieldName.GetHashCode(), stateEvent), toAction);
+            fromElement.ElementAction = toAction;
         }
         
         public InputField CreateInputField(string name, CursorPosition position, uint maxcharacters, InputType inputType, bool allowNullValues)
@@ -227,6 +228,11 @@ namespace TinyUI
                     throw new InvalidInputException(_allInputFields[i]);
                 }
             }
+        }
+
+        public void SetCurrentUIElement(IUIElement element)
+        {
+            _currentElementPosition = element;
         }
         private void DeleteCharacter()
         {

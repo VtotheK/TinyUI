@@ -7,7 +7,7 @@ namespace TinyUITests
     {
 
         [Test]
-        public void TransitionTest()
+        public void CurrentUiElement()
         {
             WindowManager manager = new WindowManager(System.ConsoleColor.White,System.ConsoleColor.Red);
 
@@ -16,10 +16,7 @@ namespace TinyUITests
             Assert.IsInstanceOf<InputField>(firstField);
             Assert.IsInstanceOf<InputField>(secondField);
             manager.CreateNavigationStateTransition(firstField, System.ConsoleKey.LeftArrow, secondField,true);
-            manager.SetCursorToUIElement(firstField);
-            manager.NavigationInput(System.ConsoleKey.LeftArrow);
-            Assert.AreSame(secondField, manager.GetCurrentUIElement());
-            manager.NavigationInput(System.ConsoleKey.RightArrow);
+            manager.SetCurrentUIElement(firstField);
             Assert.AreSame(firstField, manager.GetCurrentUIElement());
         }
 
@@ -29,17 +26,17 @@ namespace TinyUITests
             WindowManager manager = new WindowManager(System.ConsoleColor.White, System.ConsoleColor.Red);
             var btn = manager.CreateButtonField("TestButton", new CursorPosition(2, 2), "TestLabel");
             Assert.IsInstanceOf<ButtonField>(btn);
-            manager.SetCursorToUIElement(btn);
+            manager.SetCurrentUIElement(btn);
 
             var btnref = manager.GetCurrentUIElement();
             Assert.AreSame(btn, btnref);
 
             var otherbutton = manager.CreateButtonField("OtherTestButton", new CursorPosition(1, 1), "TestLabel");
 
-            manager.SetCursorToUIElement(otherbutton);
+            manager.SetCurrentUIElement(otherbutton);
             Assert.AreNotSame(otherbutton, btn);
 
-            manager.SetCursorToUIElement(btn);
+            manager.SetCurrentUIElement(btn);
             Assert.AreSame(btn, btnref);
         }
     }
