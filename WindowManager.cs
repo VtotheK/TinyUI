@@ -21,20 +21,20 @@ namespace TinyUI
         Esc
     }
 
-    class WindowManager
+    public class WindowManager
     {
         List<InputField> _allInputFields = new List<InputField>();
         List<ButtonField> _allButtonFields = new List<ButtonField>();
         Dictionary<NavigationStateChange, IUIElement> navigationStateTransitions = new Dictionary<NavigationStateChange, IUIElement>();
         Dictionary<ActionStateChange, Action> _actionStateTransitions = new Dictionary<ActionStateChange, Action>();
-        private InputField _errorInputField;
-        private IUIElement _currentElementPosition;
+        InputField _errorInputField;
+        IUIElement _currentElementPosition;
         readonly ConsoleColor _inputTextColor;
         readonly ConsoleColor _errorTextColor;
-        private ConsoleColor _buttonHighLightFgColor;
-        private ConsoleColor _buttonHighLightBgColor;
-        private string _errorMessageBody;
-        private bool _terminated = false;
+        ConsoleColor _buttonHighLightFgColor;
+        ConsoleColor _buttonHighLightBgColor;
+        string _errorMessageBody;
+        bool _terminated = false;
         #region Constructors
         public WindowManager(ConsoleColor textColor, ConsoleColor errorTextColor)
         {
@@ -80,7 +80,8 @@ namespace TinyUI
         }
         public void CreateActionStateTransition(IUIElement fromElement, ConsoleKey stateEvent, Action toAction)
         {
-           _actionStateTransitions.Add(new ActionStateChange(fromElement.FieldName.GetHashCode(), stateEvent), toAction);
+            _actionStateTransitions.Add(new ActionStateChange(fromElement.FieldName.GetHashCode(), stateEvent), toAction);
+            fromElement.ElementAction = toAction;
         }
         
         public InputField CreateInputField(string name, CursorPosition position, uint maxcharacters, InputType inputType, bool allowNullValues)
@@ -228,6 +229,11 @@ namespace TinyUI
                 }
             }
         }
+
+        public void SetCurrentUIElement(IUIElement element)
+        {
+            _currentElementPosition = element;
+        }
         private void DeleteCharacter()
         {
             if(_currentElementPosition is InputField)
@@ -290,7 +296,13 @@ namespace TinyUI
                     throw new ArgumentException("Unknown key provided for getting opposite navigation state event.");
             }
         }
+<<<<<<< HEAD
 ///<summary>Terminate the internal WindowManager Init loop and return back to caller</summary>
+=======
+
+///<summary>Terminate the internal WindowManager Init loop and return back to caller</summary>
+
+>>>>>>> 29c1da967679369a91b8bcff3d2fecea64af9a96
         public void Terminate()
         {
             _terminated = true;

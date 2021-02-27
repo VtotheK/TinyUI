@@ -5,14 +5,14 @@ using System.Text;
 
 namespace TinyUI
 {
-    class ButtonField : IUIElement
+    public class ButtonField : IUIElement
     {
         readonly string _fieldName;
         private CursorPosition _elementPosition;
         private CursorPosition _labelPosition;
         private string _label;
         private ElementDecorators _elementDecorators;
-
+        private Action _buttonAction;
         public ButtonField(string fieldName, CursorPosition position, string label)
         {
             _elementPosition = position;
@@ -36,6 +36,8 @@ namespace TinyUI
                 }
             }
         }
+
+        public Action ElementAction { get => _buttonAction; set { _buttonAction = value; } }
 
         public ElementDecorators Decorators { get => _elementDecorators; set => _elementDecorators = value; }
         public CursorPosition GetCursorPosition()

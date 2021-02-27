@@ -36,6 +36,7 @@ namespace TinyUI
         readonly bool _nullValues;
         private StringBuilder _buffer;
         private ElementDecorators _decorators;
+        private Action _elementAction;
         public InputField(string fieldName, CursorPosition position, int maxchars, InputType type, bool nullValues)
         {
             _nullValues = nullValues;
@@ -77,6 +78,8 @@ namespace TinyUI
 
 
         public bool NullValues => _nullValues;
+        public Action ElementAction { get => _elementAction; set => _elementAction = value; } 
+
 
         public ElementDecorators Decorators { get => _decorators;
             set { 
@@ -89,6 +92,8 @@ namespace TinyUI
                 }
             }
         }
+
+
 
         public bool AddCharToBuffer(char character)
         {
@@ -139,7 +144,8 @@ namespace TinyUI
 
         public bool ValidateField()
         {
-            if (NullValues && BufferLength <= 0)
+
+            if (!NullValues && BufferLength <= 0)
             {
                 return false;
             }
@@ -147,6 +153,12 @@ namespace TinyUI
             {
                 return true;
             }
+
+            else if(BufferLength > Maxchars)
+            {
+                return false;
+            }
+
             else
             {
                 string pattern = @"[!\#£¤$%€&/{(\[)\]=}?\\´`+´|_:^¨~*'"+'"'+"<>@§½]";
@@ -176,7 +188,7 @@ namespace TinyUI
                         return true;
 
                     case InputType.UnsignedInteger:
-                        uint utemp;
+
                         if (Regex.Match(BufferText, "[a-zA-Z äÄåÅöÖ]", RegexOptions.IgnoreCase).Success
                             || Regex.Match(BufferText, pattern, RegexOptions.IgnoreCase).Success
                             || BufferText[0] == '-')
