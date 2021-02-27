@@ -294,6 +294,7 @@ namespace TinyUI
         public void Terminate()
         {
             _terminated = true;
+            Console.Clear();
         }
 
         public void Init()
