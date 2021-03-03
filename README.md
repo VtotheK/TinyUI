@@ -59,7 +59,7 @@ namespace MyApp
 
         public void CreateUI()
         {
-<<<<<<< HEAD
+
             
         }
     }
@@ -72,7 +72,6 @@ namespace MyApp
     firstNameField.Label = "First name";
     ageField.Label = "Age";
 }
-=======
             firstNameField = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
             ageField = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
             firstNameField.Label = "First name";
@@ -80,7 +79,6 @@ namespace MyApp
         }
     }
 }
->>>>>>> 778089a80e5031955f69c2c202d8cc174709dd34
 ```
 WindowManger has a method `CreateInputField` for creating the input fields. This method takes the following parameters:
 
