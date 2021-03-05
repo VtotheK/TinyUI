@@ -187,11 +187,7 @@ Small demo what we have done so far
 ### Button invoke function call
 
 To bind a function to button press event, use WindowManagers `CreateActionStateTransition` function.
-<<<<<<< HEAD
-```
-=======
 ```cs
->>>>>>> 778089a80e5031955f69c2c202d8cc174709dd34
 public void CreateUI()
 {
     .
