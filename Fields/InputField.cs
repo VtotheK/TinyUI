@@ -14,7 +14,8 @@ namespace TinyUI
         StringNoSpecialCharacters,
         StringNoNumbersNoSpecialCharacters,
         Char,
-        Float
+        Float,
+        DateTime
     }
 
     public enum LabelPosition
@@ -161,6 +162,7 @@ namespace TinyUI
 
             else
             {
+                string datetimepattern = $"(((0|1)[0-9]|2[0-9]|3[0-1]).(0[1-9]|1[0-2]).((19|20))";
                 string pattern = @"[!\#£¤$%€&/{(\[)\]=}?\\´`+´|_:^¨~*'"+'"'+"<>@§½]";
                 switch (InputType)
                 {
@@ -200,6 +202,14 @@ namespace TinyUI
                         {
                             return BufferText.Length != 1;
                         }
+                    case InputType.DateTime:
+                        {
+                            if(Regex.Match(BufferText,datetimepattern,RegexOptions.IgnoreCase).Success)
+                            {
+                                return false;
+                            }
+                            return true;
+                        }
                     default:
                         return false;
                 }
@@ -211,12 +221,6 @@ namespace TinyUI
             if (Label != null)
             {
                 int mid = 0;
-                /*
-                if(1==2)
-                {
-                    mid = (Maxchars / 2) - (Label.Length / 2)-1; TODO Figure out how this could work
-                }
-                */
                 Console.SetCursorPosition(LabelPosition.Left+mid, LabelPosition.Top);
                 Console.Write(Label);
             }
