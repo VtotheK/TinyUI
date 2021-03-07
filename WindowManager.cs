@@ -175,6 +175,10 @@ namespace TinyUI
                 f.ChangeHighlight(ConsoleColor.Black, ConsoleColor.White);
                 Console.CursorVisible = false;
             }
+            else
+            {
+                Console.CursorVisible = true;
+            }
             var pos = _currentElementPosition.GetCursorPosition();
             Console.SetCursorPosition(pos.Left, pos.Top);
             Console.ForegroundColor = ConsoleColor.White;
@@ -214,15 +218,17 @@ namespace TinyUI
             }
             catch(InvalidInputException e)
             {
-                PrintErrorMessage(e.InputFieldName);
+                PrintErrorMessage(e.InputField);
                 return null;
             }
         }
 
         private void ValidateInputFields()
         {
+            IUIElement elemIter;
             for(int i = 0; i < _allInputFields.Count; ++i)
             {
+                elemIter = _allInputFields[i]; 
                 if(!_allInputFields[i].ValidateField())
                 {
                     throw new InvalidInputException(_allInputFields[i]);
@@ -259,7 +265,7 @@ namespace TinyUI
             }
         }
 
-        public void PrintErrorMessage(string fieldName)
+        public void PrintErrorMessage(IUIElement errorField)
         {
             if (_errorInputField != null)
             {
@@ -267,16 +273,16 @@ namespace TinyUI
                 {
                     _errorInputField.EmptyBuffer(true);
                 }
-                var currentElement = GetCurrentUIElement();
+                //var currentElement = GetCurrentUIElement();
                 SetCursorToUIElement(_errorInputField);
                 Console.ForegroundColor = _errorTextColor;
                 Console.BackgroundColor = ConsoleColor.Black;
-                string errorMessage = $"{ErrorMessageBody} : {fieldName}";
+                string errorMessage = $"{ErrorMessageBody} : {errorField.FieldName}";
                 Console.Write(errorMessage);
                 _errorInputField.SetBuffer(errorMessage);
                 Console.ForegroundColor = _inputTextColor;
                 Console.BackgroundColor = ConsoleColor.Black;
-                SetCursorToUIElement(currentElement);
+                SetCursorToUIElement(errorField);
             }
         }
 
@@ -324,7 +330,8 @@ namespace TinyUI
                     {
                         DeleteCharacter();
                     }
-                    else if (key.Key != ConsoleKey.Tab && key.Key != ConsoleKey.Enter)
+                    else if (key.Key != ConsoleKey.Tab && key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.RightArrow && key.Key != ConsoleKey.LeftArrow
+                        && key.Key != ConsoleKey.UpArrow && key.Key != ConsoleKey.DownArrow)
                     {
                         AddCharacter(key);
                     }

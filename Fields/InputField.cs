@@ -94,8 +94,6 @@ namespace TinyUI
             }
         }
 
-
-
         public bool AddCharToBuffer(char character)
         {
             if (_buffer.Length < _maxchars)
