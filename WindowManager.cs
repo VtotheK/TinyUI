@@ -214,6 +214,7 @@ namespace TinyUI
                 {
                     ret[_allInputFields[i].FieldName] = _allInputFields[i].BufferText; 
                 }
+                _errorInputField.EmptyBuffer(true);
                 return ret;
             }
             catch(InvalidInputException e)

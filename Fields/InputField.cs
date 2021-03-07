@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,8 @@ namespace TinyUI
         StringNoNumbersNoSpecialCharacters,
         Char,
         Float,
-        DateTime
+        DateTime,
+        Decimal
     }
 
     public enum LabelPosition
@@ -160,12 +162,18 @@ namespace TinyUI
 
             else
             {
-                string datetimepattern = $"(((0|1)[0-9]|2[0-9]|3[0-1]).(0[1-9]|1[0-2]).((19|20))";
                 string pattern = @"[!\#£¤$%€&/{(\[)\]=}?\\´`+´|_:^¨~*'"+'"'+"<>@§½]";
                 switch (InputType)
                 {
                     case InputType.StringNoNumbers:
                         if (Regex.Match(BufferText, "[0-9]", RegexOptions.IgnoreCase).Success)
+                        {
+                            return false;
+                        }
+                        return true;
+
+                    case InputType.StringNoSpecialCharacters:
+                        if(Regex.Match(BufferText,pattern,RegexOptions.IgnoreCase).Success)
                         {
                             return false;
                         }
@@ -180,34 +188,48 @@ namespace TinyUI
                         }
                         return true;
                     case InputType.Integer:
-                        if (Regex.Match(BufferText,"[a-zA-Z äÄåÅöÖ]",RegexOptions.IgnoreCase).Success
-                            || Regex.Match(BufferText,pattern,RegexOptions.IgnoreCase).Success)
                         {
-                            return false;
+                            int t;
+                            if (!Int32.TryParse(BufferText, out t))
+                            {
+                                return false;
+                            }
+                            return true;
                         }
-                        return true;
 
                     case InputType.UnsignedInteger:
-
-                        if (Regex.Match(BufferText, "[a-zA-Z äÄåÅöÖ]", RegexOptions.IgnoreCase).Success
-                            || Regex.Match(BufferText, pattern, RegexOptions.IgnoreCase).Success
-                            || BufferText[0] == '-')
                         {
-                            return false;
+                            uint t;
+                            if (!UInt32.TryParse(BufferText, out t))
+                            {
+                                return false;
+                            }
+                            return true;
                         }
-                        return true;
                     case InputType.Char:
                         {
                             return BufferText.Length != 1;
                         }
                     case InputType.DateTime:
                         {
-                            if(Regex.Match(BufferText,datetimepattern,RegexOptions.IgnoreCase).Success)
+                            DateTime dt;
+                            if(!DateTime.TryParseExact(BufferText,"dd.MM.yyyy",CultureInfo.CurrentCulture,DateTimeStyles.None, out dt))
                             {
                                 return false;
                             }
                             return true;
                         }
+                    case InputType.Decimal:
+                        {
+                            decimal d;
+                            if (!Decimal.TryParse(BufferText, out d))
+                            {
+                                return false;
+                            }
+                            return true;
+                        }
+                    case InputType.String:
+                        return true;
                     default:
                         return false;
                 }
