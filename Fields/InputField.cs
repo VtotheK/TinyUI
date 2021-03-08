@@ -198,9 +198,14 @@ namespace TinyUI
                         return true;
                     case InputType.Integer:
                         {
-                            int t;
-                            if (!Int32.TryParse(BufferText, out t))
+                            if(Regex.IsMatch(BufferText,pattern,RegexOptions.IgnoreCase) ||
+                                Regex.IsMatch(BufferText, @"^[a-zA-ZÄäÖöÅå]+$",RegexOptions.IgnoreCase))
                             {
+                                var mat = Regex.Match(BufferText, pattern, RegexOptions.IgnoreCase);
+                                if(mat.Length == 1 && mat.Index == 0 && mat.Value == "-")
+                                {
+                                    return true;
+                                }
                                 return false;
                             }
                             return true;
@@ -208,8 +213,8 @@ namespace TinyUI
 
                     case InputType.UnsignedInteger:
                         {
-                            uint t;
-                            if (!UInt32.TryParse(BufferText, out t))
+                            if(Regex.IsMatch(BufferText,pattern,RegexOptions.IgnoreCase) ||
+                                Regex.IsMatch(BufferText, @"^[a-zA-ZÄäÖöÅå]+$",RegexOptions.IgnoreCase))
                             {
                                 return false;
                             }
