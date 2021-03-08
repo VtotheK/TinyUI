@@ -137,10 +137,19 @@ namespace TinyUI
             return new CursorPosition(ElementPosition.Left + BufferText.Length, ElementPosition.Top);
         }
 
-        public void SetBuffer(string s)
+        public void SetBuffer(string s,bool drawField)
         {
             _buffer.Clear();
             _buffer.Append(s);
+            if(drawField)
+            {
+                CursorPosition temp = new CursorPosition(Console.CursorLeft, Console.CursorTop);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.SetCursorPosition(_elementPosition.Left, _elementPosition.Top);
+                Console.Write(_buffer.ToString());
+                Console.SetCursorPosition(temp.Left, temp.Top);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
 
         public bool ValidateField()

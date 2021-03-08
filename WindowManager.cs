@@ -215,6 +215,11 @@ namespace TinyUI
                     ret[_allInputFields[i].FieldName] = _allInputFields[i].BufferText; 
                 }
                 _errorInputField.EmptyBuffer(true);
+                for(int j = 0; j < _allInputFields.Count; ++j)
+                {
+                    _allInputFields[j].EmptyBuffer(true);
+                }
+
                 return ret;
             }
             catch(InvalidInputException e)
@@ -280,7 +285,7 @@ namespace TinyUI
                 Console.BackgroundColor = ConsoleColor.Black;
                 string errorMessage = $"{ErrorMessageBody} : {errorField.FieldName}";
                 Console.Write(errorMessage);
-                _errorInputField.SetBuffer(errorMessage);
+                _errorInputField.SetBuffer(errorMessage,false);
                 Console.ForegroundColor = _inputTextColor;
                 Console.BackgroundColor = ConsoleColor.Black;
                 SetCursorToUIElement(errorField);
