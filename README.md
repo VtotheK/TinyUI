@@ -65,18 +65,12 @@ namespace MyApp
     }
 }
 
- public void CreateUI()
- {
-    irstNameField = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
-    ageField = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
-    firstNameField.Label = "First name";
-    ageField.Label = "Age";
-}
-            firstNameField = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
-            ageField = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
-            firstNameField.Label = "First name";
-            ageField.Label = "Age";
-        }
+    public void CreateUI()
+    {
+        firstNameField = manager.CreateInputField("FirstName", new CursorPosition(2, 2), 10, InputType.StringNoNumbersNoSpecialCharacters, false);
+        ageField = manager.CreateInputField("Age", new CursorPosition(20, 2), 3, InputType.Integer, false);
+        firstNameField.Label = "First name";
+        ageField.Label = "Age";
     }
 }
 ```
