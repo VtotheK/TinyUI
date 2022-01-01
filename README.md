@@ -3,6 +3,10 @@ TinyUI is a small library to create buttons and input fields to .NET console app
 
 This library was created as a student project.
 
+Example program using TinyUI.
+
+![TinyUI example](https://github.com/VtotheK/TinyUI/blob/master/Doc/TinyUI-example.gif)
+
 ## Tutorial
 
 Create empty .NET console project, clone this repository to the project folder. 
